@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	* {
+		@apply antialiased;
+	}
+
+	html {
+		scroll-behavior: auto;
+	}
+
+	body {
+		@apply bg-dark text-white/90 overflow-x-hidden;
+		font-family: 'Inter', system-ui, -apple-system, sans-serif;
+		letter-spacing: -0.02em;
+	}
+
+	/* Custom scrollbar for webkit browsers */
+	::-webkit-scrollbar {
+		width: 8px;
+	}
+
+	::-webkit-scrollbar-track {
+		@apply bg-dark;
+	}
+
+	::-webkit-scrollbar-thumb {
+		@apply bg-white/10 rounded-full;
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		@apply bg-white/20;
+	}
+}
+
+@layer components {
+	.text-gradient {
+		@apply bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent;
+	}
+
+	.glass-effect {
+		@apply bg-white/5 backdrop-blur-xl border border-white/10;
+	}
+}
+
+@layer utilities {
+	.text-balance {
+		text-wrap: balance;
+	}
+}
