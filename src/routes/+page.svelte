@@ -37,7 +37,7 @@
     };
 
     onMount(() => {
-        // Split text into characters for kinetic typography - 3 phases
+        // ... existing kinetic typography logic ...
         const phase1Title = document.querySelector("#phase-1-title");
         const phase2Title = document.querySelector("#phase-2-title");
         const phase3Title = document.querySelector("#phase-3-title");
@@ -87,21 +87,50 @@
         const container = document.querySelector(".text-overlay-container");
         if (!container) return;
 
-        phases.forEach((phase) => {
+        phases.forEach((phase, index) => {
             const element = document.querySelector(phase.id);
             if (!element) return;
 
-            // Set initial state - all phases start invisible
-            gsap.set(element, { opacity: 0, y: 50 });
+            // Set initial state - Phase 1 starts visible, others start invisible
+            if (index === 0) {
+                // Phase 1: Animate in on load with kinetic typography
+                gsap.set(element, { opacity: 1, y: 0 });
 
-            // Kinetic typography animation for characters
-            if (phase.split && phase.split.chars) {
-                gsap.set(phase.split.chars, {
-                    opacity: 0,
-                    y: 100,
-                    rotationX: -90,
-                    transformOrigin: "50% 50%",
-                });
+                // Set initial hidden state for characters
+                if (phase.split && phase.split.chars) {
+                    gsap.set(phase.split.chars, {
+                        opacity: 0,
+                        y: 100,
+                        rotationX: -90,
+                        scale: 0.5,
+                        transformOrigin: "50% 50%",
+                    });
+
+                    // Animate characters in with stagger
+                    gsap.to(phase.split.chars, {
+                        opacity: 1,
+                        y: 0,
+                        rotationX: 0,
+                        scale: 1,
+                        duration: 1.2,
+                        stagger: 0.03,
+                        ease: "power3.out",
+                        delay: 0.3,
+                    });
+                }
+            } else {
+                // Phase 2 & 3: Hidden until scroll
+                gsap.set(element, { opacity: 0, y: 50 });
+
+                // Kinetic typography animation for characters
+                if (phase.split && phase.split.chars) {
+                    gsap.set(phase.split.chars, {
+                        opacity: 0,
+                        y: 100,
+                        rotationX: -90,
+                        transformOrigin: "50% 50%",
+                    });
+                }
             }
 
             // Create individual ScrollTrigger for each phase
@@ -123,8 +152,27 @@
                     let opacity = 0;
                     let y = 50;
 
-                    if (progress >= fadeInStart && progress < fadeInEnd) {
-                        // Fading in
+                    // Special handling for Phase 1 (index 0): Skip fade-in, start visible
+                    if (index === 0 && progress < fadeInEnd) {
+                        // Phase 1 stays fully visible until fade-out starts
+                        opacity = 1;
+                        y = 0;
+
+                        // Characters fully visible
+                        if (phase.split && phase.split.chars) {
+                            gsap.set(phase.split.chars, {
+                                opacity: 1,
+                                y: 0,
+                                rotationX: 0,
+                                scale: 1,
+                            });
+                        }
+                    } else if (
+                        progress >= fadeInStart &&
+                        progress < fadeInEnd &&
+                        index !== 0
+                    ) {
+                        // Fading in (for Phase 2 & 3 only)
                         const fadeProgress = (progress - fadeInStart) / 8;
                         opacity = fadeProgress;
                         y = 50 * (1 - fadeProgress);
@@ -591,7 +639,7 @@
             });
         }
 
-        // Scroll Tracking for Back-to-Top Button
+        // Scroll Tracking for Back-to-Top Button & System Island State
         const handleScroll = () => {
             const scrollTop = window.scrollY;
             const docHeight =
@@ -599,7 +647,9 @@
             const scrollPercent = (scrollTop / docHeight) * 100;
 
             scrollPercentage = scrollPercent;
-            showBackToTop = scrollPercent > 36; // Show after 36% scroll
+
+            // Back-to-Top Visibility
+            showBackToTop = scrollPercent > 36;
         };
 
         window.addEventListener("scroll", handleScroll);
