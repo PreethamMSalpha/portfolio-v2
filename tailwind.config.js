@@ -4,12 +4,14 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ['Inter', 'system-ui', 'sans-serif']
+				sans: ['Geist Sans', 'Inter', 'system-ui', 'sans-serif'],
+				mono: ['Geist Mono', 'monospace']
 			},
 			colors: {
+				'yulu-blue': '#00DCF6',
 				dark: {
-					DEFAULT: '#080808',
-					lighter: '#0f0f0f'
+					DEFAULT: '#0A0A0A',
+					lighter: '#121212'
 				}
 			}
 		}
