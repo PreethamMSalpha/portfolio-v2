@@ -15,11 +15,21 @@
 
     // Back-to-Top Logic
     const scrollToTop = () => {
-        gsap.to(window, {
-            scrollTo: { y: 0, autoKill: true },
-            duration: 1.5,
-            ease: "expo.out",
-        });
+        // Use Lenis smooth scroll if available, otherwise fallback to GSAP
+        const lenis = (window as any).lenis;
+        if (lenis) {
+            lenis.scrollTo(0, {
+                duration: 2.5,
+                easing: (t: number) =>
+                    t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2, // easeInOutQuad
+            });
+        } else {
+            gsap.to(window, {
+                scrollTo: { y: 0, autoKill: true },
+                duration: 2.5,
+                ease: "power2.inOut",
+            });
+        }
     };
 
     const animateEntrance = (node: HTMLElement) => {
