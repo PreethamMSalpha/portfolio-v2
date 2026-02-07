@@ -13,6 +13,9 @@
     let scrollPercentage = $state(0);
     let isHovering = $state(false);
 
+    // Live uptime clock for SYSTEM_PROFILE
+    let uptime = $state("00:00:00");
+
     // Back-to-Top Logic
     const scrollToTop = () => {
         // Use Lenis smooth scroll if available, otherwise fallback to GSAP
@@ -664,8 +667,47 @@
 
         window.addEventListener("scroll", handleScroll);
 
+        // Live Uptime Clock
+        const startTime = Date.now();
+        const uptimeInterval = setInterval(() => {
+            const elapsed = Date.now() - startTime;
+            const hours = Math.floor(elapsed / 3600000);
+            const minutes = Math.floor((elapsed % 3600000) / 60000);
+            const seconds = Math.floor((elapsed % 60000) / 1000);
+            uptime = `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+        }, 1000);
+
+        // SYSTEM_PROFILE Scroll Animation
+        const profileSection = document.querySelector("#system-profile");
+        const profileBio = document.querySelector("#profile-bio");
+        const profileBorder = document.querySelector("#profile-border");
+
+        if (profileSection && profileBio && profileBorder) {
+            // Start visible but slightly blurred
+            gsap.set(profileBio, { opacity: 1, filter: "blur(4px)" });
+            gsap.set(profileBorder, { scaleY: 0, transformOrigin: "top" });
+
+            ScrollTrigger.create({
+                trigger: profileSection,
+                start: "top center+=200",
+                end: "top center-=100",
+                scrub: 1,
+                onUpdate: (self) => {
+                    const progress = self.progress;
+                    // Blur from 4px to 0px (instead of opacity change)
+                    gsap.set(profileBio, {
+                        filter: `blur(${4 * (1 - progress)}px)`,
+                    });
+                    gsap.set(profileBorder, {
+                        scaleY: progress,
+                    });
+                },
+            });
+        }
+
         return () => {
             window.removeEventListener("scroll", handleScroll);
+            clearInterval(uptimeInterval);
             ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
             splitPhase1?.revert();
             splitPhase2?.revert();
@@ -754,6 +796,131 @@
         </section>
     </div>
 
+    <!-- SYSTEM_PROFILE: About Me Section -->
+    <section
+        id="system-profile"
+        class="relative z-10 bg-[#121212] border-t border-b border-white/5 py-12 md:py-20 lg:py-24 px-4 md:px-6 lg:px-8"
+    >
+        <div class="max-w-6xl mx-auto">
+            <!-- 2-Column Grid -->
+            <div
+                class="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-10 lg:gap-12"
+            >
+                <!-- COLUMN 1: METADATA (The Stats) -->
+                <div class="space-y-4 md:space-y-6">
+                    <h3
+                        class="text-[#00DCF6] font-mono text-xs sm:text-sm font-bold mb-4 md:mb-6 tracking-wider"
+                    >
+                        [SYSTEM_METADATA]
+                    </h3>
+
+                    <div
+                        class="space-y-2 md:space-y-3 font-mono text-xs sm:text-sm"
+                    >
+                        <!-- NAME -->
+                        <div class="flex items-start gap-2 sm:gap-3">
+                            <span
+                                class="text-white/30 min-w-[70px] sm:min-w-[80px] shrink-0"
+                                >[NAME]:</span
+                            >
+                            <span class="text-white/70 break-words"
+                                >PREETHAM</span
+                            >
+                        </div>
+
+                        <!-- ROLE -->
+                        <div class="flex items-start gap-2 sm:gap-3">
+                            <span
+                                class="text-white/30 min-w-[70px] sm:min-w-[80px] shrink-0"
+                                >[ROLE]:</span
+                            >
+                            <span class="text-white/70 break-words">SDE_2</span>
+                        </div>
+
+                        <!-- NODE -->
+                        <div class="flex items-start gap-2 sm:gap-3">
+                            <span
+                                class="text-white/30 min-w-[70px] sm:min-w-[80px] shrink-0"
+                                >[NODE]:</span
+                            >
+                            <span class="text-white/70 break-words"
+                                >BENGALURU_IN</span
+                            >
+                        </div>
+
+                        <!-- UPTIME (Live Clock) -->
+                        <div class="flex items-start gap-2 sm:gap-3">
+                            <span
+                                class="text-white/30 min-w-[70px] sm:min-w-[80px] shrink-0"
+                                >[UPTIME]:</span
+                            >
+                            <span class="text-[#00DCF6] font-bold tabular-nums"
+                                >{uptime}</span
+                            >
+                        </div>
+
+                        <!-- STATUS -->
+                        <div class="flex items-start gap-2 sm:gap-3">
+                            <span
+                                class="text-white/30 min-w-[70px] sm:min-w-[80px] shrink-0"
+                                >[STATUS]:</span
+                            >
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span
+                                    class="w-2 h-2 rounded-full bg-[#9DC44D] animate-pulse shrink-0"
+                                ></span>
+                                <span
+                                    class="text-[#9DC44D] text-[10px] sm:text-xs break-words"
+                                    >ACTIVE_DEVELOPMENT</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COLUMN 2: THE NARRATIVE (The Bio) -->
+                <div class="relative mt-6 md:mt-0">
+                    <!-- Growing Border (Animated on Scroll) -->
+                    <div
+                        id="profile-border"
+                        class="absolute left-0 top-0 bottom-0 w-[2px] bg-[#00DCF6] hidden md:block"
+                    ></div>
+
+                    <!-- Bio Content -->
+                    <div id="profile-bio" class="md:pl-6 lg:pl-8">
+                        <h3
+                            class="text-[#00DCF6] font-mono text-sm sm:text-base mb-4 md:mb-6 tracking-wide"
+                        >
+                            $ system_profile --verbose
+                        </h3>
+
+                        <div
+                            class="space-y-3 md:space-y-4 text-white/80 leading-relaxed text-sm sm:text-base"
+                        >
+                            <p>
+                                I am a Full-Stack Engineer specializing in
+                                building the operational backbone of urban
+                                mobility. At Yulu, I develop high-reliability
+                                internal dashboards that manage complex
+                                inventory flows and streamline customer support
+                                workflows.
+                            </p>
+
+                            <p>
+                                My focus is on execution: delivering modular,
+                                performant code that eliminates operational
+                                friction. From scaling the official web presence
+                                to engineering precise management tools, I build
+                                software that ensures the business machine runs
+                                without a hitch.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Professional Timeline Section -->
     <section
         id="timeline-section"
@@ -768,7 +935,7 @@
             <p
                 class="text-center text-white/50 mb-12 md:mb-20 font-mono text-xs md:text-sm"
             >
-                SCROLL TO EXPLORE
+                SCROLL TO NAVIGATE
             </p>
 
             <!-- Timeline Container -->
@@ -972,7 +1139,7 @@
     <!-- The Ecosystem: Bento Grid Toolkit -->
     <section
         id="bento-grid"
-        class="relative z-10 bg-dark-lighter py-16 md:py-32 px-4 md:px-8"
+        class="relative z-10 bg-dark-lighter py-12 md:py-24 lg:py-32 px-4 md:px-6 lg:px-8"
     >
         <div class="max-w-7xl mx-auto">
             <h2
@@ -981,56 +1148,69 @@
                 THE ECOSYSTEM
             </h2>
             <p
-                class="text-center text-white/50 mb-12 md:mb-20 font-mono text-xs md:text-sm"
+                class="text-center text-white/50 mb-8 md:mb-16 lg:mb-20 font-mono text-xs md:text-sm"
             >
                 TOOLS & TECHNOLOGIES
             </p>
 
             <!-- Bento Grid Container -->
             <div
-                class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 auto-rows-[200px] md:auto-rows-[250px]"
+                class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6 sm:auto-rows-[200px] md:auto-rows-[250px]"
             >
                 <!-- Cell 1: The Core [2x2 Large Card] -->
-                <div class="bento-card md:col-span-2 md:row-span-2 group">
+                <div
+                    class="bento-card sm:col-span-2 sm:row-span-2 group min-h-[320px] sm:min-h-0"
+                >
                     <div class="bento-content h-full">
                         <h3
-                            class="text-2xl md:text-3xl font-bold text-white mb-4 font-mono"
+                            class="text-lg sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-3 md:mb-4 font-mono"
                         >
                             JavaScript & Frameworks
                         </h3>
-                        <div class="flex flex-wrap gap-6 md:gap-8 mb-6">
+                        <div
+                            class="flex flex-wrap gap-3 sm:gap-6 md:gap-8 mb-3 sm:mb-4 md:mb-6"
+                        >
                             <div class="floating-icon">
                                 <div
-                                    class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-[#FF3E00]/10 border border-[#FF3E00]/30 flex items-center justify-center"
+                                    class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl sm:rounded-2xl bg-[#FF3E00]/10 border border-[#FF3E00]/30 flex items-center justify-center"
                                 >
-                                    <span class="text-3xl md:text-4xl">⚡</span>
+                                    <span
+                                        class="text-2xl sm:text-3xl md:text-4xl"
+                                        >⚡</span
+                                    >
                                 </div>
                                 <p
-                                    class="text-xs md:text-sm text-white/70 mt-2 font-mono"
+                                    class="text-[10px] sm:text-xs md:text-sm text-white/70 mt-1 sm:mt-2 font-mono"
                                 >
                                     Svelte 5
                                 </p>
                             </div>
                             <div class="floating-icon">
                                 <div
-                                    class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-[#61DAFB]/10 border border-[#61DAFB]/30 flex items-center justify-center"
+                                    class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl sm:rounded-2xl bg-[#61DAFB]/10 border border-[#61DAFB]/30 flex items-center justify-center"
                                 >
-                                    <span class="text-3xl md:text-4xl">⚛️</span>
+                                    <span
+                                        class="text-2xl sm:text-3xl md:text-4xl"
+                                        >⚛️</span
+                                    >
                                 </div>
                                 <p
-                                    class="text-xs md:text-sm text-white/70 mt-2 font-mono"
+                                    class="text-[10px] sm:text-xs md:text-sm text-white/70 mt-1 sm:mt-2 font-mono"
                                 >
                                     React
                                 </p>
                             </div>
                             <div class="floating-icon">
                                 <div
-                                    class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-[#3178C6]/10 border border-[#3178C6]/30 flex items-center justify-center"
+                                    class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl sm:rounded-2xl bg-[#3178C6]/10 border border-[#3178C6]/30 flex items-center justify-center"
                                 >
-                                    <span class="text-3xl md:text-4xl">📘</span>
+                                    <span
+                                        class="text-2xl sm:text-3xl md:text-4xl"
+                                        >📘</span
+                                    >
                                 </div>
                                 <p
-                                    class="text-xs md:text-sm text-white/70 mt-2 font-mono"
+                                    class="text-[10px] sm:text-xs md:text-sm text-white/70 mt-1 sm:mt-2 font-mono"
                                 >
                                     TypeScript
                                 </p>
@@ -1038,7 +1218,7 @@
                         </div>
                         <button
                             id="rune-toggle"
-                            class="px-4 py-2 bg-[#00DCF6]/20 text-[#00DCF6] rounded-lg text-sm font-mono font-bold hover:bg-[#00DCF6]/30 transition-all duration-300"
+                            class="px-3 py-1.5 sm:px-4 sm:py-2 bg-[#00DCF6]/20 text-[#00DCF6] rounded-lg text-xs sm:text-sm font-mono font-bold hover:bg-[#00DCF6]/30 transition-all duration-300"
                         >
                             Toggle Svelte 5 Rune
                         </button>
@@ -1059,7 +1239,7 @@ let doubled = $derived(count * 2);</code
                 <div class="bento-card group">
                     <div class="bento-content h-full">
                         <h3
-                            class="text-xl md:text-2xl font-bold text-white mb-4 font-mono"
+                            class="text-lg sm:text-xl md:text-2xl font-bold text-white mb-3 md:mb-4 font-mono"
                         >
                             Cross-Platform
                         </h3>
@@ -1079,10 +1259,10 @@ let doubled = $derived(count * 2);</code
                 </div>
 
                 <!-- Cell 3: The Engine [2x1 Wide Card] -->
-                <div class="bento-card md:col-span-2 group">
+                <div class="bento-card sm:col-span-2 group">
                     <div class="bento-content h-full">
                         <h3
-                            class="text-xl md:text-2xl font-bold text-white mb-4 font-mono"
+                            class="text-lg sm:text-xl md:text-2xl font-bold text-white mb-3 md:mb-4 font-mono"
                         >
                             Backend & Systems
                         </h3>
@@ -1141,7 +1321,7 @@ let doubled = $derived(count * 2);</code
                 <div class="bento-card group">
                     <div class="bento-content h-full">
                         <h3
-                            class="text-xl md:text-2xl font-bold text-white mb-4 font-mono"
+                            class="text-lg sm:text-xl md:text-2xl font-bold text-white mb-3 md:mb-4 font-mono"
                         >
                             Internal Tools
                         </h3>
