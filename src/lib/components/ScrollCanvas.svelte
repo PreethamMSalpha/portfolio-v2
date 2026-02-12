@@ -6,7 +6,7 @@
     gsap.registerPlugin(ScrollTrigger);
 
     // Svelte 5 Runes
-    let currentFrame = $state(1);
+    let currentFrame = $state(0);
     let loadingProgress = $state(0);
     let isLoaded = $state(false);
     let showSkip = $state(false);
@@ -15,8 +15,8 @@
     let context: CanvasRenderingContext2D | null = null;
 
     // Configuration
-    const FRAME_COUNT = 233;
-    const FRAME_PATH = "/sequence/ezgif-frame-";
+    const FRAME_COUNT = 186;
+    const FRAME_PATH = "/webp_sequence_new/frame_";
     const images: HTMLImageElement[] = [];
     let lastDrawnFrame = -1;
     let rafId: number | null = null;
@@ -52,15 +52,15 @@
                 }
             };
 
-            for (let i = 1; i <= FRAME_COUNT; i++) {
+            for (let i = 0; i < FRAME_COUNT; i++) {
                 const img = new Image();
-                const frameNumber = i.toString().padStart(3, "0");
-                img.src = `${FRAME_PATH}${frameNumber}.jpg`;
+                const frameNumber = i.toString().padStart(4, "0");
+                img.src = `${FRAME_PATH}${frameNumber}.webp`;
 
                 img.onload = handleImageLoad;
                 img.onerror = handleImageLoad;
 
-                images[i - 1] = img;
+                images[i] = img;
             }
         });
     }
@@ -111,7 +111,7 @@
             context.setTransform(dpr, 0, 0, dpr, 0, 0);
         }
         lastDrawnFrame = -1;
-        drawFrame(currentFrame - 1);
+        drawFrame(currentFrame);
     }
 
     onMount(() => {
@@ -185,7 +185,7 @@
                                     Math.floor(self.progress * FRAME_COUNT),
                                 );
                                 if (frameIndex === lastDrawnFrame) return;
-                                currentFrame = frameIndex + 1;
+                                currentFrame = frameIndex;
                                 if (rafId) cancelAnimationFrame(rafId);
                                 rafId = requestAnimationFrame(() => {
                                     drawFrame(frameIndex);
