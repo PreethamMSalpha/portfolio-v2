@@ -100,6 +100,11 @@
         resizeCanvas();
         window.addEventListener("resize", resizeCanvas);
 
+        // Lock scroll while loading
+        const lenis = (window as any).lenis;
+        if (lenis) lenis.stop();
+        document.body.style.overflow = "hidden";
+
         const skipTimer = setTimeout(() => {
             showSkip = true;
         }, 3000);
@@ -119,6 +124,8 @@
             console.log("ScrollCanvas: Assets ready, initializing GSAP...");
             drawFrame(0);
 
+            // Unlock scroll now that loading is complete
+            document.body.style.overflow = "";
             const lenis = (window as any).lenis;
             if (lenis) {
                 ScrollTrigger.scrollerProxy(document.body, {
@@ -139,6 +146,7 @@
                 });
 
                 lenis.on("scroll", () => ScrollTrigger.update());
+                lenis.start();
             }
 
             const triggerElement = canvasElement.parentElement?.parentElement;
@@ -170,7 +178,7 @@
 {#if !isLoaded}
     <div
         class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#0A0A0A]"
-        style="opacity: {1 -
+        style="position: fixed; top: 0; left: 0; width: 100vw; height: 100dvh; opacity: {1 -
             loadingProgress / 100}; transition: opacity 0.5s ease-out;"
     >
         <div class="text-center px-4 max-w-md">
