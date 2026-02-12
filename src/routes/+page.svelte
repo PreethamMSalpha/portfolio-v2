@@ -5,6 +5,7 @@
     import { ScrollToPlugin } from "gsap/ScrollToPlugin";
     import SplitType from "split-type";
     import ScrollCanvas from "$lib/components/ScrollCanvas.svelte";
+    import ScrollNudge from "$lib/components/ScrollNudge.svelte";
 
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -2572,6 +2573,9 @@
         </div>
     </footer>
 </main>
+
+<!-- Intelligent Scroll Nudge Indicator -->
+<ScrollNudge />
 
 <!-- Smart Sticky Return: Vertical Pill Button -->
 {#if showBackToTop}
