@@ -1806,417 +1806,429 @@
         </div>
     </section>
 
-    <!-- The Gallery: Project Case Studies -->
-    <section
-        id="project-gallery"
-        class="relative z-10 bg-dark py-16 md:py-32 px-4 md:px-8 overflow-hidden"
-    >
-        <div class="max-w-7xl mx-auto">
-            <h2
-                class="text-3xl md:text-5xl lg:text-6xl font-black text-white mb-2 md:mb-4 text-center"
-            >
-                THE GALLERY
-            </h2>
-            <p
-                class="text-center text-white/50 mb-12 md:mb-20 font-mono text-xs md:text-sm"
-            >
-                PROJECT CASE STUDIES
-            </p>
+    <!-- TEMPORARILY HIDDEN - The Gallery: Project Case Studies -->
+    {#if false}
+        <section
+            id="project-gallery"
+            class="relative z-10 bg-dark py-16 md:py-32 px-4 md:px-8 overflow-hidden"
+        >
+            <div class="max-w-7xl mx-auto">
+                <h2
+                    class="text-3xl md:text-5xl lg:text-6xl font-black text-white mb-2 md:mb-4 text-center"
+                >
+                    THE GALLERY
+                </h2>
+                <p
+                    class="text-center text-white/50 mb-12 md:mb-20 font-mono text-xs md:text-sm"
+                >
+                    PROJECT CASE STUDIES
+                </p>
 
-            <!-- Project Cards Container -->
-            <div class="space-y-12 md:space-y-24">
-                <!-- Project 1: Inventory Control System -->
-                <div class="project-card-container" data-project="1">
-                    <div class="project-card group">
-                        <div
-                            class="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8"
-                        >
-                            <!-- Technical Metadata Sidebar -->
-                            <div class="lg:col-span-3 space-y-4">
-                                <div>
-                                    <p
-                                        class="text-xs text-white/40 font-mono mb-2"
-                                    >
-                                        PROJECT
-                                    </p>
-                                    <h3
-                                        class="text-xl md:text-2xl font-bold text-white font-mono"
-                                    >
-                                        Inventory Control
-                                    </h3>
-                                </div>
-                                <div>
-                                    <p
-                                        class="text-xs text-white/40 font-mono mb-2"
-                                    >
-                                        CLIENT
-                                    </p>
-                                    <p class="text-white/70 font-mono">Yulu</p>
-                                </div>
-                                <div>
-                                    <p
-                                        class="text-xs text-white/40 font-mono mb-2"
-                                    >
-                                        YEAR
-                                    </p>
-                                    <p class="text-white/70 font-mono">2024</p>
-                                </div>
-                                <div>
-                                    <p
-                                        class="text-xs text-white/40 font-mono mb-3"
-                                    >
-                                        TECH STACK
-                                    </p>
-                                    <div class="flex flex-wrap gap-2">
-                                        <span
-                                            class="px-3 py-1 bg-[#00DCF6]/10 text-[#00DCF6] rounded-full text-xs font-mono"
+                <!-- Project Cards Container -->
+                <div class="space-y-12 md:space-y-24">
+                    <!-- Project 1: Inventory Control System -->
+                    <div class="project-card-container" data-project="1">
+                        <div class="project-card group">
+                            <div
+                                class="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8"
+                            >
+                                <!-- Technical Metadata Sidebar -->
+                                <div class="lg:col-span-3 space-y-4">
+                                    <div>
+                                        <p
+                                            class="text-xs text-white/40 font-mono mb-2"
                                         >
-                                            Svelte 5
-                                        </span>
-                                        <span
-                                            class="px-3 py-1 bg-[#00DCF6]/10 text-[#00DCF6] rounded-full text-xs font-mono"
+                                            PROJECT
+                                        </p>
+                                        <h3
+                                            class="text-xl md:text-2xl font-bold text-white font-mono"
                                         >
-                                            Node.js
-                                        </span>
-                                        <span
-                                            class="px-3 py-1 bg-[#00DCF6]/10 text-[#00DCF6] rounded-full text-xs font-mono"
-                                        >
-                                            SQL
-                                        </span>
+                                            Inventory Control
+                                        </h3>
                                     </div>
-                                </div>
-                            </div>
-
-                            <!-- Project Content -->
-                            <div class="lg:col-span-9">
-                                <div class="project-flip-container">
-                                    <!-- Front: Project Description -->
-                                    <div class="project-front">
-                                        <div
-                                            class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 md:p-8 h-full"
+                                    <div>
+                                        <p
+                                            class="text-xs text-white/40 font-mono mb-2"
                                         >
-                                            <h4
-                                                class="text-2xl md:text-4xl font-black text-white mb-4"
+                                            CLIENT
+                                        </p>
+                                        <p class="text-white/70 font-mono">
+                                            Yulu
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p
+                                            class="text-xs text-white/40 font-mono mb-2"
+                                        >
+                                            YEAR
+                                        </p>
+                                        <p class="text-white/70 font-mono">
+                                            2024
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p
+                                            class="text-xs text-white/40 font-mono mb-3"
+                                        >
+                                            TECH STACK
+                                        </p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span
+                                                class="px-3 py-1 bg-[#00DCF6]/10 text-[#00DCF6] rounded-full text-xs font-mono"
                                             >
-                                                Architecting Operational
-                                                Integrity
-                                            </h4>
-                                            <p
-                                                class="text-base md:text-lg text-white/70 leading-relaxed mb-6"
+                                                Svelte 5
+                                            </span>
+                                            <span
+                                                class="px-3 py-1 bg-[#00DCF6]/10 text-[#00DCF6] rounded-full text-xs font-mono"
                                             >
-                                                Transitioning manual flows into
-                                                automated, high-precision
-                                                inventory tracking. Built a
-                                                comprehensive system that
-                                                ensures real-time accuracy
-                                                across multiple warehouses and
-                                                operational zones.
-                                            </p>
-                                            <button
-                                                class="view-architecture-btn px-6 py-3 bg-[#00DCF6]/20 text-[#00DCF6] rounded-lg font-mono font-bold hover:bg-[#00DCF6]/30 transition-all duration-300"
+                                                Node.js
+                                            </span>
+                                            <span
+                                                class="px-3 py-1 bg-[#00DCF6]/10 text-[#00DCF6] rounded-full text-xs font-mono"
                                             >
-                                                View Architecture →
-                                            </button>
+                                                SQL
+                                            </span>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <!-- Back: System Architecture -->
-                                    <div class="project-back hidden">
-                                        <div
-                                            class="bg-black/60 backdrop-blur-xl border border-[#00DCF6]/30 rounded-2xl p-6 md:p-8 h-full"
-                                        >
-                                            <h4
-                                                class="text-xl md:text-2xl font-bold text-[#00DCF6] mb-6 font-mono"
-                                            >
-                                                SYSTEM ARCHITECTURE
-                                            </h4>
+                                <!-- Project Content -->
+                                <div class="lg:col-span-9">
+                                    <div class="project-flip-container">
+                                        <!-- Front: Project Description -->
+                                        <div class="project-front">
                                             <div
-                                                class="space-y-6 font-mono text-sm md:text-base"
+                                                class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 md:p-8 h-full"
                                             >
-                                                <div
-                                                    class="flex items-center gap-4"
+                                                <h4
+                                                    class="text-2xl md:text-4xl font-black text-white mb-4"
                                                 >
-                                                    <div
-                                                        class="w-24 md:w-32 px-4 py-3 bg-[#00DCF6]/10 border border-[#00DCF6]/30 rounded-lg text-center"
-                                                    >
-                                                        <p
-                                                            class="text-[#00DCF6] font-bold"
-                                                        >
-                                                            CLIENT
-                                                        </p>
-                                                        <p
-                                                            class="text-white/50 text-xs mt-1"
-                                                        >
-                                                            Svelte 5
-                                                        </p>
-                                                    </div>
-                                                    <div
-                                                        class="flex-1 h-[2px] bg-[#00DCF6]/30 relative"
-                                                    >
-                                                        <span
-                                                            class="absolute right-0 top-1/2 -translate-y-1/2 text-[#00DCF6]"
-                                                            >→</span
-                                                        >
-                                                    </div>
-                                                    <div
-                                                        class="w-24 md:w-32 px-4 py-3 bg-[#00DCF6]/10 border border-[#00DCF6]/30 rounded-lg text-center"
-                                                    >
-                                                        <p
-                                                            class="text-[#00DCF6] font-bold"
-                                                        >
-                                                            API
-                                                        </p>
-                                                        <p
-                                                            class="text-white/50 text-xs mt-1"
-                                                        >
-                                                            Node.js
-                                                        </p>
-                                                    </div>
-                                                    <div
-                                                        class="flex-1 h-[2px] bg-[#00DCF6]/30 relative"
-                                                    >
-                                                        <span
-                                                            class="absolute right-0 top-1/2 -translate-y-1/2 text-[#00DCF6]"
-                                                            >→</span
-                                                        >
-                                                    </div>
-                                                    <div
-                                                        class="w-24 md:w-32 px-4 py-3 bg-[#00DCF6]/10 border border-[#00DCF6]/30 rounded-lg text-center"
-                                                    >
-                                                        <p
-                                                            class="text-[#00DCF6] font-bold"
-                                                        >
-                                                            DB
-                                                        </p>
-                                                        <p
-                                                            class="text-white/50 text-xs mt-1"
-                                                        >
-                                                            PostgreSQL
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="text-white/50 text-xs md:text-sm"
+                                                    Architecting Operational
+                                                    Integrity
+                                                </h4>
+                                                <p
+                                                    class="text-base md:text-lg text-white/70 leading-relaxed mb-6"
                                                 >
-                                                    <p>
-                                                        • Real-time inventory
-                                                        sync across zones
-                                                    </p>
-                                                    <p>
-                                                        • Atomic transaction
-                                                        handling
-                                                    </p>
-                                                    <p>
-                                                        • Sub-second query
-                                                        performance
-                                                    </p>
-                                                </div>
+                                                    Transitioning manual flows
+                                                    into automated,
+                                                    high-precision inventory
+                                                    tracking. Built a
+                                                    comprehensive system that
+                                                    ensures real-time accuracy
+                                                    across multiple warehouses
+                                                    and operational zones.
+                                                </p>
+                                                <button
+                                                    class="view-architecture-btn px-6 py-3 bg-[#00DCF6]/20 text-[#00DCF6] rounded-lg font-mono font-bold hover:bg-[#00DCF6]/30 transition-all duration-300"
+                                                >
+                                                    View Architecture →
+                                                </button>
                                             </div>
-                                            <button
-                                                class="close-architecture-btn mt-6 px-6 py-3 bg-white/10 text-white rounded-lg font-mono font-bold hover:bg-white/20 transition-all duration-300"
+                                        </div>
+
+                                        <!-- Back: System Architecture -->
+                                        <div class="project-back hidden">
+                                            <div
+                                                class="bg-black/60 backdrop-blur-xl border border-[#00DCF6]/30 rounded-2xl p-6 md:p-8 h-full"
                                             >
-                                                ← Back to Overview
-                                            </button>
+                                                <h4
+                                                    class="text-xl md:text-2xl font-bold text-[#00DCF6] mb-6 font-mono"
+                                                >
+                                                    SYSTEM ARCHITECTURE
+                                                </h4>
+                                                <div
+                                                    class="space-y-6 font-mono text-sm md:text-base"
+                                                >
+                                                    <div
+                                                        class="flex items-center gap-4"
+                                                    >
+                                                        <div
+                                                            class="w-24 md:w-32 px-4 py-3 bg-[#00DCF6]/10 border border-[#00DCF6]/30 rounded-lg text-center"
+                                                        >
+                                                            <p
+                                                                class="text-[#00DCF6] font-bold"
+                                                            >
+                                                                CLIENT
+                                                            </p>
+                                                            <p
+                                                                class="text-white/50 text-xs mt-1"
+                                                            >
+                                                                Svelte 5
+                                                            </p>
+                                                        </div>
+                                                        <div
+                                                            class="flex-1 h-[2px] bg-[#00DCF6]/30 relative"
+                                                        >
+                                                            <span
+                                                                class="absolute right-0 top-1/2 -translate-y-1/2 text-[#00DCF6]"
+                                                                >→</span
+                                                            >
+                                                        </div>
+                                                        <div
+                                                            class="w-24 md:w-32 px-4 py-3 bg-[#00DCF6]/10 border border-[#00DCF6]/30 rounded-lg text-center"
+                                                        >
+                                                            <p
+                                                                class="text-[#00DCF6] font-bold"
+                                                            >
+                                                                API
+                                                            </p>
+                                                            <p
+                                                                class="text-white/50 text-xs mt-1"
+                                                            >
+                                                                Node.js
+                                                            </p>
+                                                        </div>
+                                                        <div
+                                                            class="flex-1 h-[2px] bg-[#00DCF6]/30 relative"
+                                                        >
+                                                            <span
+                                                                class="absolute right-0 top-1/2 -translate-y-1/2 text-[#00DCF6]"
+                                                                >→</span
+                                                            >
+                                                        </div>
+                                                        <div
+                                                            class="w-24 md:w-32 px-4 py-3 bg-[#00DCF6]/10 border border-[#00DCF6]/30 rounded-lg text-center"
+                                                        >
+                                                            <p
+                                                                class="text-[#00DCF6] font-bold"
+                                                            >
+                                                                DB
+                                                            </p>
+                                                            <p
+                                                                class="text-white/50 text-xs mt-1"
+                                                            >
+                                                                PostgreSQL
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class="text-white/50 text-xs md:text-sm"
+                                                    >
+                                                        <p>
+                                                            • Real-time
+                                                            inventory sync
+                                                            across zones
+                                                        </p>
+                                                        <p>
+                                                            • Atomic transaction
+                                                            handling
+                                                        </p>
+                                                        <p>
+                                                            • Sub-second query
+                                                            performance
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <button
+                                                    class="close-architecture-btn mt-6 px-6 py-3 bg-white/10 text-white rounded-lg font-mono font-bold hover:bg-white/20 transition-all duration-300"
+                                                >
+                                                    ← Back to Overview
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Project 2: Support Ecosystem -->
-                <div class="project-card-container" data-project="2">
-                    <div class="project-card group">
-                        <div
-                            class="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8"
-                        >
-                            <!-- Technical Metadata Sidebar -->
-                            <div class="lg:col-span-3 space-y-4">
-                                <div>
-                                    <p
-                                        class="text-xs text-white/40 font-mono mb-2"
-                                    >
-                                        PROJECT
-                                    </p>
-                                    <h3
-                                        class="text-xl md:text-2xl font-bold text-white font-mono"
-                                    >
-                                        Support Ecosystem
-                                    </h3>
-                                </div>
-                                <div>
-                                    <p
-                                        class="text-xs text-white/40 font-mono mb-2"
-                                    >
-                                        CLIENT
-                                    </p>
-                                    <p class="text-white/70 font-mono">Yulu</p>
-                                </div>
-                                <div>
-                                    <p
-                                        class="text-xs text-white/40 font-mono mb-2"
-                                    >
-                                        YEAR
-                                    </p>
-                                    <p class="text-white/70 font-mono">
-                                        2023-2024
-                                    </p>
-                                </div>
-                                <div>
-                                    <p
-                                        class="text-xs text-white/40 font-mono mb-3"
-                                    >
-                                        TECH STACK
-                                    </p>
-                                    <div class="flex flex-wrap gap-2">
-                                        <span
-                                            class="px-3 py-1 bg-[#00DCF6]/10 text-[#00DCF6] rounded-full text-xs font-mono"
+                    <!-- Project 2: Support Ecosystem -->
+                    <div class="project-card-container" data-project="2">
+                        <div class="project-card group">
+                            <div
+                                class="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8"
+                            >
+                                <!-- Technical Metadata Sidebar -->
+                                <div class="lg:col-span-3 space-y-4">
+                                    <div>
+                                        <p
+                                            class="text-xs text-white/40 font-mono mb-2"
                                         >
-                                            React
-                                        </span>
-                                        <span
-                                            class="px-3 py-1 bg-[#00DCF6]/10 text-[#00DCF6] rounded-full text-xs font-mono"
+                                            PROJECT
+                                        </p>
+                                        <h3
+                                            class="text-xl md:text-2xl font-bold text-white font-mono"
                                         >
-                                            Real-time APIs
-                                        </span>
-                                        <span
-                                            class="px-3 py-1 bg-[#00DCF6]/10 text-[#00DCF6] rounded-full text-xs font-mono"
-                                        >
-                                            CSS Grid
-                                        </span>
+                                            Support Ecosystem
+                                        </h3>
                                     </div>
-                                </div>
-                            </div>
-
-                            <!-- Project Content -->
-                            <div class="lg:col-span-9">
-                                <div class="project-flip-container">
-                                    <!-- Front: Project Description -->
-                                    <div class="project-front">
-                                        <div
-                                            class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 md:p-8 h-full"
+                                    <div>
+                                        <p
+                                            class="text-xs text-white/40 font-mono mb-2"
                                         >
-                                            <h4
-                                                class="text-2xl md:text-4xl font-black text-white mb-4"
+                                            CLIENT
+                                        </p>
+                                        <p class="text-white/70 font-mono">
+                                            Yulu
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p
+                                            class="text-xs text-white/40 font-mono mb-2"
+                                        >
+                                            YEAR
+                                        </p>
+                                        <p class="text-white/70 font-mono">
+                                            2023-2024
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p
+                                            class="text-xs text-white/40 font-mono mb-3"
+                                        >
+                                            TECH STACK
+                                        </p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span
+                                                class="px-3 py-1 bg-[#00DCF6]/10 text-[#00DCF6] rounded-full text-xs font-mono"
                                             >
-                                                Eliminating Agent Friction
-                                            </h4>
-                                            <p
-                                                class="text-base md:text-lg text-white/70 leading-relaxed mb-6"
+                                                React
+                                            </span>
+                                            <span
+                                                class="px-3 py-1 bg-[#00DCF6]/10 text-[#00DCF6] rounded-full text-xs font-mono"
                                             >
-                                                A unified dashboard reducing
-                                                resolution time for customer
-                                                support teams. Streamlined
-                                                workflows and real-time data
-                                                access empowered agents to
-                                                resolve issues 40% faster.
-                                            </p>
-                                            <button
-                                                class="view-architecture-btn px-6 py-3 bg-[#00DCF6]/20 text-[#00DCF6] rounded-lg font-mono font-bold hover:bg-[#00DCF6]/30 transition-all duration-300"
+                                                Real-time APIs
+                                            </span>
+                                            <span
+                                                class="px-3 py-1 bg-[#00DCF6]/10 text-[#00DCF6] rounded-full text-xs font-mono"
                                             >
-                                                View Architecture →
-                                            </button>
+                                                CSS Grid
+                                            </span>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <!-- Back: System Architecture -->
-                                    <div class="project-back hidden">
-                                        <div
-                                            class="bg-black/60 backdrop-blur-xl border border-[#00DCF6]/30 rounded-2xl p-6 md:p-8 h-full"
-                                        >
-                                            <h4
-                                                class="text-xl md:text-2xl font-bold text-[#00DCF6] mb-6 font-mono"
-                                            >
-                                                SYSTEM ARCHITECTURE
-                                            </h4>
+                                <!-- Project Content -->
+                                <div class="lg:col-span-9">
+                                    <div class="project-flip-container">
+                                        <!-- Front: Project Description -->
+                                        <div class="project-front">
                                             <div
-                                                class="space-y-6 font-mono text-sm md:text-base"
+                                                class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 md:p-8 h-full"
                                             >
+                                                <h4
+                                                    class="text-2xl md:text-4xl font-black text-white mb-4"
+                                                >
+                                                    Eliminating Agent Friction
+                                                </h4>
+                                                <p
+                                                    class="text-base md:text-lg text-white/70 leading-relaxed mb-6"
+                                                >
+                                                    A unified dashboard reducing
+                                                    resolution time for customer
+                                                    support teams. Streamlined
+                                                    workflows and real-time data
+                                                    access empowered agents to
+                                                    resolve issues 40% faster.
+                                                </p>
+                                                <button
+                                                    class="view-architecture-btn px-6 py-3 bg-[#00DCF6]/20 text-[#00DCF6] rounded-lg font-mono font-bold hover:bg-[#00DCF6]/30 transition-all duration-300"
+                                                >
+                                                    View Architecture →
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- Back: System Architecture -->
+                                        <div class="project-back hidden">
+                                            <div
+                                                class="bg-black/60 backdrop-blur-xl border border-[#00DCF6]/30 rounded-2xl p-6 md:p-8 h-full"
+                                            >
+                                                <h4
+                                                    class="text-xl md:text-2xl font-bold text-[#00DCF6] mb-6 font-mono"
+                                                >
+                                                    SYSTEM ARCHITECTURE
+                                                </h4>
                                                 <div
-                                                    class="flex items-center gap-4"
+                                                    class="space-y-6 font-mono text-sm md:text-base"
                                                 >
                                                     <div
-                                                        class="w-24 md:w-32 px-4 py-3 bg-[#00DCF6]/10 border border-[#00DCF6]/30 rounded-lg text-center"
+                                                        class="flex items-center gap-4"
                                                     >
-                                                        <p
-                                                            class="text-[#00DCF6] font-bold"
+                                                        <div
+                                                            class="w-24 md:w-32 px-4 py-3 bg-[#00DCF6]/10 border border-[#00DCF6]/30 rounded-lg text-center"
                                                         >
-                                                            CLIENT
-                                                        </p>
-                                                        <p
-                                                            class="text-white/50 text-xs mt-1"
+                                                            <p
+                                                                class="text-[#00DCF6] font-bold"
+                                                            >
+                                                                CLIENT
+                                                            </p>
+                                                            <p
+                                                                class="text-white/50 text-xs mt-1"
+                                                            >
+                                                                React
+                                                            </p>
+                                                        </div>
+                                                        <div
+                                                            class="flex-1 h-[2px] bg-[#00DCF6]/30 relative"
                                                         >
-                                                            React
-                                                        </p>
+                                                            <span
+                                                                class="absolute right-0 top-1/2 -translate-y-1/2 text-[#00DCF6]"
+                                                                >→</span
+                                                            >
+                                                        </div>
+                                                        <div
+                                                            class="w-24 md:w-32 px-4 py-3 bg-[#00DCF6]/10 border border-[#00DCF6]/30 rounded-lg text-center"
+                                                        >
+                                                            <p
+                                                                class="text-[#00DCF6] font-bold"
+                                                            >
+                                                                API
+                                                            </p>
+                                                            <p
+                                                                class="text-white/50 text-xs mt-1"
+                                                            >
+                                                                WebSocket
+                                                            </p>
+                                                        </div>
+                                                        <div
+                                                            class="flex-1 h-[2px] bg-[#00DCF6]/30 relative"
+                                                        >
+                                                            <span
+                                                                class="absolute right-0 top-1/2 -translate-y-1/2 text-[#00DCF6]"
+                                                                >→</span
+                                                            >
+                                                        </div>
+                                                        <div
+                                                            class="w-24 md:w-32 px-4 py-3 bg-[#00DCF6]/10 border border-[#00DCF6]/30 rounded-lg text-center"
+                                                        >
+                                                            <p
+                                                                class="text-[#00DCF6] font-bold"
+                                                            >
+                                                                DB
+                                                            </p>
+                                                            <p
+                                                                class="text-white/50 text-xs mt-1"
+                                                            >
+                                                                MongoDB
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                     <div
-                                                        class="flex-1 h-[2px] bg-[#00DCF6]/30 relative"
+                                                        class="text-white/50 text-xs md:text-sm"
                                                     >
-                                                        <span
-                                                            class="absolute right-0 top-1/2 -translate-y-1/2 text-[#00DCF6]"
-                                                            >→</span
-                                                        >
-                                                    </div>
-                                                    <div
-                                                        class="w-24 md:w-32 px-4 py-3 bg-[#00DCF6]/10 border border-[#00DCF6]/30 rounded-lg text-center"
-                                                    >
-                                                        <p
-                                                            class="text-[#00DCF6] font-bold"
-                                                        >
-                                                            API
-                                                        </p>
-                                                        <p
-                                                            class="text-white/50 text-xs mt-1"
-                                                        >
+                                                        <p>
+                                                            • Real-time ticket
+                                                            updates via
                                                             WebSocket
                                                         </p>
-                                                    </div>
-                                                    <div
-                                                        class="flex-1 h-[2px] bg-[#00DCF6]/30 relative"
-                                                    >
-                                                        <span
-                                                            class="absolute right-0 top-1/2 -translate-y-1/2 text-[#00DCF6]"
-                                                            >→</span
-                                                        >
-                                                    </div>
-                                                    <div
-                                                        class="w-24 md:w-32 px-4 py-3 bg-[#00DCF6]/10 border border-[#00DCF6]/30 rounded-lg text-center"
-                                                    >
-                                                        <p
-                                                            class="text-[#00DCF6] font-bold"
-                                                        >
-                                                            DB
+                                                        <p>
+                                                            • Unified agent
+                                                            dashboard with CSS
+                                                            Grid
                                                         </p>
-                                                        <p
-                                                            class="text-white/50 text-xs mt-1"
-                                                        >
-                                                            MongoDB
+                                                        <p>
+                                                            • 40% reduction in
+                                                            resolution time
                                                         </p>
                                                     </div>
                                                 </div>
-                                                <div
-                                                    class="text-white/50 text-xs md:text-sm"
+                                                <button
+                                                    class="close-architecture-btn mt-6 px-6 py-3 bg-white/10 text-white rounded-lg font-mono font-bold hover:bg-white/20 transition-all duration-300"
                                                 >
-                                                    <p>
-                                                        • Real-time ticket
-                                                        updates via WebSocket
-                                                    </p>
-                                                    <p>
-                                                        • Unified agent
-                                                        dashboard with CSS Grid
-                                                    </p>
-                                                    <p>
-                                                        • 40% reduction in
-                                                        resolution time
-                                                    </p>
-                                                </div>
+                                                    ← Back to Overview
+                                                </button>
                                             </div>
-                                            <button
-                                                class="close-architecture-btn mt-6 px-6 py-3 bg-white/10 text-white rounded-lg font-mono font-bold hover:bg-white/20 transition-all duration-300"
-                                            >
-                                                ← Back to Overview
-                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -2225,13 +2237,13 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    {/if}
 
     <!-- Engineering Principles: The Mindset -->
     <section
         id="engineering-principles"
-        class="relative z-10 bg-dark-lighter py-16 md:py-32 px-4 md:px-8"
+        class="relative z-10 bg-dark py-16 md:py-32 px-4 md:px-8"
     >
         <div class="max-w-7xl mx-auto">
             <h2
