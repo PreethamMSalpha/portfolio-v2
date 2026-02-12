@@ -775,9 +775,9 @@
         <!-- Phase 1: The Hook (0-33%) -->
         <section
             id="phase-1"
-            class="sticky top-0 h-screen flex items-end justify-center pb-16"
+            class="sticky top-0 h-screen flex items-end justify-center pb-16 w-full"
         >
-            <div class="text-center px-4">
+            <div class="text-center px-4 w-full max-w-full">
                 <h1
                     id="phase-1-title"
                     class="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter text-white mb-6"
@@ -795,9 +795,9 @@
         <!-- Phase 2: The Specialty (33%-66%) -->
         <section
             id="phase-2"
-            class="sticky top-0 h-screen flex items-center justify-end"
+            class="sticky top-0 h-screen flex items-center justify-end w-full"
         >
-            <div class="text-right px-8 md:px-16 lg:px-24 max-w-2xl">
+            <div class="text-right px-4 md:px-8 lg:px-16 max-w-2xl w-full">
                 <h2
                     id="phase-2-title"
                     class="text-5xl md:text-7xl font-bold tracking-tight text-white mb-6"
@@ -816,9 +816,9 @@
         <!-- Phase 3: The Tech (66%-100%) -->
         <section
             id="phase-3"
-            class="sticky top-0 h-screen flex items-center justify-start"
+            class="sticky top-0 h-screen flex items-center justify-start w-full"
         >
-            <div class="text-left px-8 md:px-16 lg:px-24 max-w-2xl">
+            <div class="text-left px-4 md:px-8 lg:px-16 max-w-2xl w-full">
                 <h2
                     id="phase-3-title"
                     class="text-5xl md:text-7xl font-bold tracking-tight text-white mb-6"
@@ -839,9 +839,9 @@
     <!-- SYSTEM_PROFILE: About Me Section -->
     <section
         id="system-profile"
-        class="relative z-10 bg-[#121212] border-t border-b border-white/5 py-12 md:py-20 lg:py-24 px-4 md:px-6 lg:px-8"
+        class="relative z-10 bg-[#121212] border-t border-b border-white/5 py-12 md:py-20 lg:py-24 px-4 md:px-6 lg:px-8 overflow-x-hidden"
     >
-        <div class="max-w-6xl mx-auto">
+        <div class="max-w-6xl mx-auto w-full">
             <!-- 2-Column Grid -->
             <div
                 class="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-10 lg:gap-12"
@@ -964,9 +964,9 @@
     <!-- Professional Timeline Section -->
     <section
         id="timeline-section"
-        class="relative z-10 bg-dark py-16 md:py-32 px-4 md:px-8"
+        class="relative z-10 bg-dark py-16 md:py-32 px-4 md:px-8 overflow-x-hidden"
     >
-        <div class="max-w-4xl mx-auto">
+        <div class="max-w-4xl mx-auto w-full">
             <h2
                 class="text-3xl md:text-5xl lg:text-6xl font-black text-white mb-2 md:mb-4 text-center"
             >
@@ -1179,9 +1179,9 @@
     <!-- The Ecosystem: Bento Grid Toolkit -->
     <section
         id="bento-grid"
-        class="relative z-10 bg-dark-lighter py-12 md:py-24 lg:py-32 px-4 md:px-6 lg:px-8"
+        class="relative z-10 bg-dark-lighter py-12 md:py-24 lg:py-32 px-4 md:px-6 lg:px-8 overflow-x-hidden"
     >
-        <div class="max-w-7xl mx-auto">
+        <div class="max-w-7xl mx-auto w-full">
             <h2
                 class="text-3xl md:text-5xl lg:text-6xl font-black text-white mb-2 md:mb-4 text-center"
             >
@@ -1810,9 +1810,9 @@
     {#if false}
         <section
             id="project-gallery"
-            class="relative z-10 bg-dark py-16 md:py-32 px-4 md:px-8 overflow-hidden"
+            class="relative z-10 bg-dark py-16 md:py-32 px-4 md:px-8 overflow-x-hidden"
         >
-            <div class="max-w-7xl mx-auto">
+            <div class="max-w-7xl mx-auto w-full">
                 <h2
                     class="text-3xl md:text-5xl lg:text-6xl font-black text-white mb-2 md:mb-4 text-center"
                 >
@@ -2243,9 +2243,9 @@
     <!-- Engineering Principles: The Mindset -->
     <section
         id="engineering-principles"
-        class="relative z-10 bg-dark py-16 md:py-32 px-4 md:px-8"
+        class="relative z-10 bg-dark py-16 md:py-32 px-4 md:px-8 overflow-x-hidden"
     >
-        <div class="max-w-7xl mx-auto">
+        <div class="max-w-7xl mx-auto w-full">
             <h2
                 class="text-3xl md:text-5xl lg:text-6xl font-black text-white mb-2 md:mb-4 text-center"
             >
@@ -2391,9 +2391,9 @@
     <!-- The Command Center: Footer & Contact -->
     <footer
         id="command-center"
-        class="relative z-10 bg-black border-t border-[#00DCF6]/20 py-12 md:py-16 px-4 md:px-8"
+        class="relative z-10 bg-black border-t border-[#00DCF6]/20 py-12 md:py-16 px-4 md:px-8 overflow-x-hidden"
     >
-        <div class="max-w-7xl mx-auto">
+        <div class="max-w-7xl mx-auto w-full">
             <!-- Status Badge -->
             <div class="flex items-center gap-3 mb-8">
                 <div class="flex items-center gap-2">
