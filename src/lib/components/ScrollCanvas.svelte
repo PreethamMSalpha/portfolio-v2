@@ -18,6 +18,10 @@
     const FRAME_COUNT = 233;
     const FRAME_PATH = "/sequence/ezgif-frame-";
     const images: HTMLImageElement[] = [];
+    let lastDrawnFrame = -1;
+    let rafId: number | null = null;
+    let logicalWidth = 0;
+    let logicalHeight = 0;
 
     // Preload all images
     function preloadImages(): Promise<void> {
@@ -62,36 +66,51 @@
     }
 
     function drawFrame(frameIndex: number) {
-        if (!context || !canvasElement) return;
+        if (!context || !canvasElement || !logicalWidth) return;
         const img = images[frameIndex];
         if (!img) return;
 
-        context.clearRect(0, 0, canvasElement.width, canvasElement.height);
+        context.clearRect(0, 0, logicalWidth, logicalHeight);
 
-        const canvasAspect = canvasElement.width / canvasElement.height;
+        const canvasAspect = logicalWidth / logicalHeight;
         const imgAspect = img.width / img.height;
 
         let drawWidth, drawHeight, offsetX, offsetY;
 
         if (canvasAspect > imgAspect) {
-            drawWidth = canvasElement.width;
+            drawWidth = logicalWidth;
             drawHeight = drawWidth / imgAspect;
             offsetX = 0;
-            offsetY = (canvasElement.height - drawHeight) / 2;
+            offsetY = (logicalHeight - drawHeight) / 2;
         } else {
-            drawHeight = canvasElement.height;
+            drawHeight = logicalHeight;
             drawWidth = drawHeight * imgAspect;
-            offsetX = (canvasElement.width - drawWidth) / 2;
+            offsetX = (logicalWidth - drawWidth) / 2;
             offsetY = 0;
         }
 
         context.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
     }
 
+    // Cap canvas resolution on mobile to avoid expensive draws on retina screens
+    const MAX_MOBILE_DPR = 1.5;
+
     function resizeCanvas() {
         if (!canvasElement) return;
-        canvasElement.width = window.innerWidth;
-        canvasElement.height = window.innerHeight;
+        logicalWidth = window.innerWidth;
+        logicalHeight = window.innerHeight;
+        const isMobile = logicalWidth <= 768;
+        const dpr = isMobile
+            ? Math.min(window.devicePixelRatio, MAX_MOBILE_DPR)
+            : 1;
+        canvasElement.width = logicalWidth * dpr;
+        canvasElement.height = logicalHeight * dpr;
+        canvasElement.style.width = logicalWidth + "px";
+        canvasElement.style.height = logicalHeight + "px";
+        if (context) {
+            context.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+        lastDrawnFrame = -1;
         drawFrame(currentFrame - 1);
     }
 
@@ -149,6 +168,7 @@
                 lenis.start();
             }
 
+            const isMobile = window.innerWidth <= 768;
             const triggerElement = canvasElement.parentElement?.parentElement;
             if (triggerElement) {
                 gsap.to(
@@ -158,14 +178,20 @@
                             trigger: triggerElement,
                             start: "top top",
                             end: "bottom bottom",
-                            scrub: 1.5,
+                            scrub: isMobile ? 0.5 : 1.5,
                             onUpdate: (self) => {
                                 const frameIndex = Math.min(
                                     FRAME_COUNT - 1,
                                     Math.floor(self.progress * FRAME_COUNT),
                                 );
+                                if (frameIndex === lastDrawnFrame) return;
                                 currentFrame = frameIndex + 1;
-                                drawFrame(frameIndex);
+                                if (rafId) cancelAnimationFrame(rafId);
+                                rafId = requestAnimationFrame(() => {
+                                    drawFrame(frameIndex);
+                                    lastDrawnFrame = frameIndex;
+                                    rafId = null;
+                                });
                             },
                         },
                     },
