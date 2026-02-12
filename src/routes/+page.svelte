@@ -463,6 +463,45 @@
             });
         });
 
+        // Staggered Reveal Animation for Bento Grid Cards
+        const bentoCards = document.querySelectorAll(".bento-card");
+        if (bentoCards.length > 0) {
+            // Set initial state - cards hidden
+            gsap.set(bentoCards, { opacity: 0, scale: 0.9 });
+
+            // Define different entry directions for each card
+            const directions = [
+                { x: -100, rotation: -5 }, // Card 1: from left
+                { x: 100, rotation: 5 }, // Card 2: from right
+                { y: 100, rotation: 0 }, // Card 3: from bottom
+                { x: -100, rotation: -5 }, // Card 4: from left
+            ];
+
+            bentoCards.forEach((card, index) => {
+                const direction = directions[index % directions.length];
+
+                gsap.set(card, direction);
+
+                ScrollTrigger.create({
+                    trigger: card,
+                    start: "top bottom-=100",
+                    once: true,
+                    onEnter: () => {
+                        gsap.to(card, {
+                            opacity: 1,
+                            scale: 1,
+                            x: 0,
+                            y: 0,
+                            rotation: 0,
+                            duration: 0.8,
+                            ease: "power3.out",
+                            delay: index * 0.1,
+                        });
+                    },
+                });
+            });
+        }
+
         // Project Gallery Flip Interactions
         const viewArchitectureBtns = document.querySelectorAll(
             ".view-architecture-btn",
@@ -1155,195 +1194,611 @@
 
             <!-- Bento Grid Container -->
             <div
-                class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6 sm:auto-rows-[200px] md:auto-rows-[250px]"
+                class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 md:auto-rows-[280px]"
             >
-                <!-- Cell 1: The Core [2x2 Large Card] -->
+                <!-- CELL 01: INTERFACE_ENGINE [Full Row Profile] -->
                 <div
-                    class="bento-card sm:col-span-2 sm:row-span-2 group min-h-[320px] sm:min-h-0"
+                    class="bento-card md:col-span-3 md:row-span-1 group min-h-[300px] md:min-h-0"
                 >
-                    <div class="bento-content h-full">
+                    <div class="bento-content h-full flex flex-col">
                         <h3
-                            class="text-lg sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-3 md:mb-4 font-mono"
+                            class="text-[#00DCF6] font-mono text-xs sm:text-sm mb-2 sm:mb-3 tracking-wider"
                         >
-                            JavaScript & Frameworks
+                            [01] INTERFACE_ENGINE
                         </h3>
-                        <div
-                            class="flex flex-wrap gap-3 sm:gap-6 md:gap-8 mb-3 sm:mb-4 md:mb-6"
+                        <p
+                            class="text-white/70 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6 flex-grow"
                         >
-                            <div class="floating-icon">
+                            Architecting high-performance user interfaces and
+                            resilient frontend systems with modern frameworks
+                            and precise state management.
+                        </p>
+                        <div
+                            class="flex flex-wrap gap-6 sm:gap-8 justify-start items-center py-4"
+                        >
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
                                 <div
-                                    class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl sm:rounded-2xl bg-[#FF3E00]/10 border border-[#FF3E00]/30 flex items-center justify-center"
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-[#00DCF6]/50 group-hover/icon:bg-[#00DCF6]/10 shadow-lg"
                                 >
-                                    <span
-                                        class="text-2xl sm:text-3xl md:text-4xl"
-                                        >⚡</span
-                                    >
+                                    <img
+                                        src="https://cdn.simpleicons.org/typescript"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 group-hover/icon:scale-110 transition-all"
+                                        alt="TypeScript"
+                                    />
                                 </div>
                                 <p
-                                    class="text-[10px] sm:text-xs md:text-sm text-white/70 mt-1 sm:mt-2 font-mono"
-                                >
-                                    Svelte 5
-                                </p>
-                            </div>
-                            <div class="floating-icon">
-                                <div
-                                    class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl sm:rounded-2xl bg-[#61DAFB]/10 border border-[#61DAFB]/30 flex items-center justify-center"
-                                >
-                                    <span
-                                        class="text-2xl sm:text-3xl md:text-4xl"
-                                        >⚛️</span
-                                    >
-                                </div>
-                                <p
-                                    class="text-[10px] sm:text-xs md:text-sm text-white/70 mt-1 sm:mt-2 font-mono"
-                                >
-                                    React
-                                </p>
-                            </div>
-                            <div class="floating-icon">
-                                <div
-                                    class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl sm:rounded-2xl bg-[#3178C6]/10 border border-[#3178C6]/30 flex items-center justify-center"
-                                >
-                                    <span
-                                        class="text-2xl sm:text-3xl md:text-4xl"
-                                        >📘</span
-                                    >
-                                </div>
-                                <p
-                                    class="text-[10px] sm:text-xs md:text-sm text-white/70 mt-1 sm:mt-2 font-mono"
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-2 font-mono group-hover/icon:text-[#00DCF6] transition-colors"
                                 >
                                     TypeScript
                                 </p>
                             </div>
-                        </div>
-                        <button
-                            id="rune-toggle"
-                            class="px-3 py-1.5 sm:px-4 sm:py-2 bg-[#00DCF6]/20 text-[#00DCF6] rounded-lg text-xs sm:text-sm font-mono font-bold hover:bg-[#00DCF6]/30 transition-all duration-300"
-                        >
-                            Toggle Svelte 5 Rune
-                        </button>
-                        <div
-                            id="rune-snippet"
-                            class="hidden mt-4 p-4 bg-black/40 rounded-lg border border-[#00DCF6]/30"
-                        >
-                            <pre
-                                class="text-xs md:text-sm text-[#00DCF6] font-mono"><code
-                                    >let count = $state(0);
-let doubled = $derived(count * 2);</code
-                                ></pre>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Cell 2: Mobile Mastery [1x1 Card] -->
-                <div class="bento-card group">
-                    <div class="bento-content h-full">
-                        <h3
-                            class="text-lg sm:text-xl md:text-2xl font-bold text-white mb-3 md:mb-4 font-mono"
-                        >
-                            Cross-Platform
-                        </h3>
-                        <div class="flex gap-4 mb-4">
-                            <div class="floating-icon">
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
                                 <div
-                                    class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-[#61DAFB]/10 border border-[#61DAFB]/30 flex items-center justify-center"
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-[#F7DF1E]/50 group-hover/icon:bg-[#F7DF1E]/10 shadow-lg"
                                 >
-                                    <span class="text-2xl">📱</span>
+                                    <img
+                                        src="https://cdn.simpleicons.org/javascript"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 group-hover/icon:scale-110 transition-all"
+                                        alt="JavaScript"
+                                    />
                                 </div>
+                                <p
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-2 font-mono group-hover/icon:text-[#F7DF1E] transition-colors"
+                                >
+                                    JavaScript
+                                </p>
+                            </div>
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
+                                <div
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-[#61DAFB]/50 group-hover/icon:bg-[#61DAFB]/10 shadow-lg"
+                                >
+                                    <img
+                                        src="https://cdn.simpleicons.org/react"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 group-hover/icon:scale-110 transition-all"
+                                        alt="React"
+                                    />
+                                </div>
+                                <p
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-2 font-mono group-hover/icon:text-[#61DAFB] transition-colors"
+                                >
+                                    React
+                                </p>
+                            </div>
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
+                                <div
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-[#DD0031]/50 group-hover/icon:bg-[#DD0031]/10 shadow-lg"
+                                >
+                                    <img
+                                        src="https://cdn.simpleicons.org/angular"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 group-hover/icon:scale-110 transition-all"
+                                        alt="Angular"
+                                    />
+                                </div>
+                                <p
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-2 font-mono group-hover/icon:text-[#DD0031] transition-colors"
+                                >
+                                    Angular
+                                </p>
+                            </div>
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
+                                <div
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-[#764ABC]/50 group-hover/icon:bg-[#764ABC]/10 shadow-lg"
+                                >
+                                    <img
+                                        src="https://cdn.simpleicons.org/redux"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 group-hover/icon:scale-110 transition-all"
+                                        alt="Redux"
+                                    />
+                                </div>
+                                <p
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-2 font-mono group-hover/icon:text-[#764ABC] transition-colors"
+                                >
+                                    Redux
+                                </p>
+                            </div>
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
+                                <div
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-[#38B2AC]/50 group-hover/icon:bg-[#38B2AC]/10 shadow-lg"
+                                >
+                                    <img
+                                        src="https://cdn.simpleicons.org/tailwindcss"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 group-hover/icon:scale-110 transition-all"
+                                        alt="Tailwind"
+                                    />
+                                </div>
+                                <p
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-2 font-mono group-hover/icon:text-[#38B2AC] transition-colors"
+                                >
+                                    Tailwind
+                                </p>
+                            </div>
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
+                                <div
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-[#7952B3]/50 group-hover/icon:bg-[#7952B3]/10 shadow-lg"
+                                >
+                                    <img
+                                        src="https://cdn.simpleicons.org/bootstrap"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 group-hover/icon:scale-110 transition-all"
+                                        alt="Bootstrap"
+                                    />
+                                </div>
+                                <p
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-2 font-mono group-hover/icon:text-[#7952B3] transition-colors"
+                                >
+                                    Bootstrap
+                                </p>
+                            </div>
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
+                                <div
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-[#0769AD]/50 group-hover/icon:bg-[#0769AD]/10 shadow-lg"
+                                >
+                                    <img
+                                        src="https://cdn.simpleicons.org/jquery"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 group-hover/icon:scale-110 transition-all"
+                                        alt="jQuery"
+                                    />
+                                </div>
+                                <p
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-2 font-mono group-hover/icon:text-[#0769AD] transition-colors"
+                                >
+                                    jQuery
+                                </p>
                             </div>
                         </div>
-                        <p class="text-xs md:text-sm text-white/50 font-mono">
-                            React Native & Expo
-                        </p>
                     </div>
                 </div>
 
-                <!-- Cell 3: The Engine [2x1 Wide Card] -->
-                <div class="bento-card sm:col-span-2 group">
-                    <div class="bento-content h-full">
-                        <h3
-                            class="text-lg sm:text-xl md:text-2xl font-bold text-white mb-3 md:mb-4 font-mono"
-                        >
-                            Backend & Systems
-                        </h3>
-                        <div class="flex flex-wrap gap-4 md:gap-6 mb-4">
-                            <div class="floating-icon">
+                <!-- CELL 02: BACKEND_EXECUTION [2x1 Wide Card] -->
+                <div
+                    class="bento-card md:col-span-2 group min-h-[280px] md:min-h-0"
+                >
+                    <div
+                        class="bento-content h-full flex flex-col justify-between py-2"
+                    >
+                        <div>
+                            <h3
+                                class="text-[#00DCF6] font-mono text-xs sm:text-sm mb-2 tracking-wider"
+                            >
+                                [02] BACKEND_EXECUTION
+                            </h3>
+                            <p
+                                class="text-white/70 text-sm sm:text-base leading-relaxed"
+                            >
+                                Developing scalable backend architectures,
+                                performant APIs, and maintainable enterprise
+                                services using multi-language expertise.
+                            </p>
+                        </div>
+                        <div class="flex flex-wrap gap-6 sm:gap-8 py-4">
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
                                 <div
-                                    class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-[#68A063]/10 border border-[#68A063]/30 flex items-center justify-center"
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-[#339933]/50 group-hover/icon:bg-[#339933]/10 shadow-lg"
                                 >
-                                    <span class="text-xl md:text-2xl">🟢</span>
+                                    <img
+                                        src="https://cdn.simpleicons.org/nodedotjs"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 transition-all font-mono"
+                                        alt="Node.js"
+                                    />
                                 </div>
-                                <p class="text-xs text-white/70 mt-1 font-mono">
+                                <p
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-1 font-mono group-hover/icon:text-[#339933]"
+                                >
                                     Node.js
                                 </p>
                             </div>
-                            <div class="floating-icon">
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
                                 <div
-                                    class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-[#336791]/10 border border-[#336791]/30 flex items-center justify-center"
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-white/30 group-hover/icon:bg-white/5 shadow-lg"
                                 >
-                                    <span class="text-xl md:text-2xl">🐘</span>
+                                    <img
+                                        src="https://cdn.simpleicons.org/express/white"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 transition-all"
+                                        alt="Express"
+                                    />
                                 </div>
-                                <p class="text-xs text-white/70 mt-1 font-mono">
-                                    PostgreSQL
+                                <p
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-1 font-mono group-hover/icon:text-white"
+                                >
+                                    Express
                                 </p>
                             </div>
-                            <div class="floating-icon">
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
                                 <div
-                                    class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-[#FF9900]/10 border border-[#FF9900]/30 flex items-center justify-center"
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-[#ED8B00]/50 group-hover/icon:bg-[#ED8B00]/10 shadow-lg"
                                 >
-                                    <span class="text-xl md:text-2xl">☁️</span>
+                                    <img
+                                        src="https://cdn.simpleicons.org/openjdk"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 transition-all"
+                                        alt="Java"
+                                    />
                                 </div>
-                                <p class="text-xs text-white/70 mt-1 font-mono">
-                                    AWS
+                                <p
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-1 font-mono group-hover/icon:text-[#ED8B00]"
+                                >
+                                    Java
                                 </p>
                             </div>
-                            <div class="floating-icon">
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
                                 <div
-                                    class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-[#2496ED]/10 border border-[#2496ED]/30 flex items-center justify-center"
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-[#3776AB]/50 group-hover/icon:bg-[#3776AB]/10 shadow-lg"
                                 >
-                                    <span class="text-xl md:text-2xl">🐳</span>
+                                    <img
+                                        src="https://cdn.simpleicons.org/python"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 transition-all"
+                                        alt="Python"
+                                    />
                                 </div>
-                                <p class="text-xs text-white/70 mt-1 font-mono">
-                                    Docker
+                                <p
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-1 font-mono group-hover/icon:text-[#3776AB]"
+                                >
+                                    Python
                                 </p>
                             </div>
-                        </div>
-                        <div
-                            class="flex gap-4 text-xs md:text-sm text-white/50 font-mono"
-                        >
-                            <span>• System Reliability</span>
-                            <span>• Atomic Updates</span>
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
+                                <div
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-[#092E20]/50 group-hover/icon:bg-[#092E20]/10 shadow-lg"
+                                >
+                                    <img
+                                        src="https://cdn.simpleicons.org/django/white"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 transition-all"
+                                        alt="Django"
+                                    />
+                                </div>
+                                <p
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-1 font-mono group-hover/icon:text-[#092E20]"
+                                >
+                                    Django
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Cell 4: Ops Focus [1x1 Card] -->
-                <div class="bento-card group">
-                    <div class="bento-content h-full">
-                        <h3
-                            class="text-lg sm:text-xl md:text-2xl font-bold text-white mb-3 md:mb-4 font-mono"
-                        >
-                            Internal Tools
-                        </h3>
-                        <div class="flex gap-3 mb-3">
-                            <div class="floating-icon">
+                <!-- CELL 03: DATA_INTEGRITY [1x1 Card] -->
+                <div class="bento-card group min-h-[250px] md:min-h-0">
+                    <div
+                        class="bento-content h-full flex flex-col justify-between py-2"
+                    >
+                        <div>
+                            <h3
+                                class="text-[#00DCF6] font-mono text-xs sm:text-sm mb-2 tracking-wider"
+                            >
+                                [03] DATA_INTEGRITY
+                            </h3>
+                            <p
+                                class="text-white/70 text-xs sm:text-sm leading-relaxed"
+                            >
+                                Managing SQL and NoSQL layers to ensure 100%
+                                data accuracy.
+                            </p>
+                        </div>
+                        <div class="flex flex-wrap gap-4 mt-4">
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
                                 <div
-                                    class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-[#00DCF6]/10 border border-[#00DCF6]/30 flex items-center justify-center"
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-[#4169E1]/50 group-hover/icon:bg-[#4169E1]/10 shadow-lg"
                                 >
-                                    <span class="text-xl md:text-2xl">📦</span>
+                                    <img
+                                        src="https://cdn.simpleicons.org/postgresql"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 transition-all"
+                                        alt="PostgreSQL"
+                                    />
                                 </div>
+                                <p
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-1 font-mono group-hover/icon:text-[#4169E1]"
+                                >
+                                    Postgres
+                                </p>
                             </div>
-                            <div class="floating-icon">
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
                                 <div
-                                    class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-[#00DCF6]/10 border border-[#00DCF6]/30 flex items-center justify-center"
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-[#4479A1]/50 group-hover/icon:bg-[#4479A1]/10 shadow-lg"
                                 >
-                                    <span class="text-xl md:text-2xl">🎫</span>
+                                    <img
+                                        src="https://cdn.simpleicons.org/mysql"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 transition-all"
+                                        alt="MySQL"
+                                    />
                                 </div>
+                                <p
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-1 font-mono group-hover/icon:text-[#4479A1]"
+                                >
+                                    MySQL
+                                </p>
+                            </div>
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
+                                <div
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-[#47A248]/50 group-hover/icon:bg-[#47A248]/10 shadow-lg"
+                                >
+                                    <img
+                                        src="https://cdn.simpleicons.org/mongodb"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 transition-all"
+                                        alt="MongoDB"
+                                    />
+                                </div>
+                                <p
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-1 font-mono group-hover/icon:text-[#47A248]"
+                                >
+                                    MongoDB
+                                </p>
+                            </div>
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
+                                <div
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-[#FFCA28]/50 group-hover/icon:bg-[#FFCA28]/10 shadow-lg"
+                                >
+                                    <img
+                                        src="https://cdn.simpleicons.org/firebase"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 transition-all"
+                                        alt="Firebase"
+                                    />
+                                </div>
+                                <p
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-1 font-mono group-hover/icon:text-[#FFCA28]"
+                                >
+                                    Firebase
+                                </p>
                             </div>
                         </div>
-                        <p class="text-xs text-white/50 font-mono">
-                            Inventory & Support
-                        </p>
+                    </div>
+                </div>
+
+                <!-- CELL 04: CROSS_PLATFORM [1x1 Card] -->
+                <div class="bento-card group min-h-[250px] md:min-h-0">
+                    <div
+                        class="bento-content h-full flex flex-col justify-between py-2"
+                    >
+                        <div>
+                            <h3
+                                class="text-[#00DCF6] font-mono text-xs sm:text-sm mb-2 tracking-wider"
+                            >
+                                [04] CROSS_PLATFORM
+                            </h3>
+                            <p
+                                class="text-white/70 text-xs sm:text-sm leading-relaxed"
+                            >
+                                Building modular mobile interfaces for agility.
+                            </p>
+                        </div>
+                        <div class="flex flex-wrap gap-4 mt-4">
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
+                                <div
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-[#02569B]/50 group-hover/icon:bg-[#02569B]/10 shadow-lg"
+                                >
+                                    <img
+                                        src="https://cdn.simpleicons.org/flutter"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 transition-all"
+                                        alt="Flutter"
+                                    />
+                                </div>
+                                <p
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-1 font-mono group-hover/icon:text-[#02569B]"
+                                >
+                                    Flutter
+                                </p>
+                            </div>
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
+                                <div
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-[#0175C2]/50 group-hover/icon:bg-[#0175C2]/10 shadow-lg"
+                                >
+                                    <img
+                                        src="https://cdn.simpleicons.org/dart"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 transition-all"
+                                        alt="Dart"
+                                    />
+                                </div>
+                                <p
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-1 font-mono group-hover/icon:text-[#0175C2]"
+                                >
+                                    Dart
+                                </p>
+                            </div>
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
+                                <div
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-[#5A0FC8]/50 group-hover/icon:bg-[#5A0FC8]/10 shadow-lg"
+                                >
+                                    <img
+                                        src="https://cdn.simpleicons.org/pwa"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 transition-all"
+                                        alt="PWA"
+                                    />
+                                </div>
+                                <p
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-1 font-mono group-hover/icon:text-[#5A0FC8]"
+                                >
+                                    PWA
+                                </p>
+                            </div>
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
+                                <div
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-[#757575]/50 group-hover/icon:bg-[#757575]/10 shadow-lg"
+                                >
+                                    <img
+                                        src="https://cdn.simpleicons.org/materialdesign"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 transition-all"
+                                        alt="Material Design"
+                                    />
+                                </div>
+                                <p
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-1 font-mono group-hover/icon:text-[#757575]"
+                                >
+                                    Material
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CELL 05: PIPELINE_OPS [2x1 Wide Card] -->
+                <div
+                    class="bento-card md:col-span-2 group min-h-[250px] md:min-h-0"
+                >
+                    <div
+                        class="bento-content h-full flex flex-col justify-between py-2"
+                    >
+                        <div>
+                            <h3
+                                class="text-[#00DCF6] font-mono text-xs sm:text-sm mb-2 tracking-wider"
+                            >
+                                [05] PIPELINE_OPS
+                            </h3>
+                            <p
+                                class="text-white/70 text-sm sm:text-base leading-relaxed"
+                            >
+                                Cloud infrastructure and lifecycle management
+                                for frictionless deployment.
+                            </p>
+                        </div>
+                        <div class="flex flex-wrap gap-4 sm:gap-6 py-4">
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
+                                <div
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-[#4285F4]/50 group-hover/icon:bg-[#4285F4]/10 shadow-lg"
+                                >
+                                    <img
+                                        src="https://cdn.simpleicons.org/googlecloud"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 transition-all"
+                                        alt="GCP"
+                                    />
+                                </div>
+                                <p
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-1 font-mono group-hover/icon:text-[#4285F4]"
+                                >
+                                    GCP
+                                </p>
+                            </div>
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
+                                <div
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-[#2496ED]/50 group-hover/icon:bg-[#2496ED]/10 shadow-lg"
+                                >
+                                    <img
+                                        src="https://cdn.simpleicons.org/docker"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 transition-all"
+                                        alt="Docker"
+                                    />
+                                </div>
+                                <p
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-1 font-mono group-hover/icon:text-[#2496ED]"
+                                >
+                                    Docker
+                                </p>
+                            </div>
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
+                                <div
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-white/30 group-hover/icon:bg-white/5 shadow-lg"
+                                >
+                                    <img
+                                        src="https://cdn.simpleicons.org/github/white"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 transition-all"
+                                        alt="GitHub"
+                                    />
+                                </div>
+                                <p
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-1 font-mono group-hover/icon:text-white"
+                                >
+                                    GitHub
+                                </p>
+                            </div>
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
+                                <div
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-[#0052CC]/50 group-hover/icon:bg-[#0052CC]/10 shadow-lg"
+                                >
+                                    <img
+                                        src="https://cdn.simpleicons.org/bitbucket"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 transition-all"
+                                        alt="Bitbucket"
+                                    />
+                                </div>
+                                <p
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-1 font-mono group-hover/icon:text-[#0052CC]"
+                                >
+                                    Bitbucket
+                                </p>
+                            </div>
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
+                                <div
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-[#0052CC]/50 group-hover/icon:bg-[#0052CC]/10 shadow-lg"
+                                >
+                                    <img
+                                        src="https://cdn.simpleicons.org/jira"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 transition-all"
+                                        alt="Jira"
+                                    />
+                                </div>
+                                <p
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-1 font-mono group-hover/icon:text-[#0052CC]"
+                                >
+                                    Jira
+                                </p>
+                            </div>
+                            <div
+                                class="floating-icon flex flex-col items-center group/icon"
+                            >
+                                <div
+                                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 group-hover/icon:border-[#00C7B7]/50 group-hover/icon:bg-[#00C7B7]/10 shadow-lg"
+                                >
+                                    <img
+                                        src="https://cdn.simpleicons.org/netlify"
+                                        class="w-7 h-7 sm:w-8 sm:h-8 opacity-80 group-hover/icon:opacity-100 transition-all"
+                                        alt="Netlify"
+                                    />
+                                </div>
+                                <p
+                                    class="text-[9px] sm:text-[10px] text-white/40 mt-1 font-mono group-hover/icon:text-[#00C7B7]"
+                                >
+                                    Netlify
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2233,7 +2688,7 @@ let doubled = $derived(count * 2);</code
     .bento-card:hover {
         background: rgba(0, 220, 246, 0.05);
         border-color: rgba(0, 220, 246, 0.3);
-        transform: translateY(-4px);
+        transform: translateY(-4px) scale(1.02);
         box-shadow: 0 20px 40px rgba(0, 220, 246, 0.1);
     }
 
@@ -2269,6 +2724,23 @@ let doubled = $derived(count * 2);</code
         }
         50% {
             transform: translateY(-10px);
+        }
+    }
+
+    /* Special pulse animation for TypeScript tag */
+    #ts-tag {
+        animation: tsPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes tsPulse {
+        0%,
+        100% {
+            box-shadow: 0 0 0 0 rgba(0, 220, 246, 0.7);
+            border-color: rgba(0, 220, 246, 0.3);
+        }
+        50% {
+            box-shadow: 0 0 0 8px rgba(0, 220, 246, 0);
+            border-color: rgba(0, 220, 246, 0.8);
         }
     }
 
