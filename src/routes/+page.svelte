@@ -1025,14 +1025,21 @@
                                 </span>
                             </div>
                             <h3
-                                class="text-xl md:text-3xl font-bold text-white mb-2 font-mono"
+                                class="text-xl md:text-2xl font-bold text-white mb-2 font-mono"
                             >
-                                Yulu | SDE-2 (Full Stack)
+                                <a
+                                    href="https://www.yulu.bike/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="hover:text-[#00DCF6] transition-colors duration-300 cursor-pointer"
+                                >
+                                    Yulu
+                                </a> | SDE-2 (Full Stack)
                             </h3>
                             <p
                                 class="text-white/40 font-mono text-xs md:text-sm mb-4 md:mb-6"
                             >
-                                2023 - Present
+                                Apr 2022 - Present
                             </p>
                             <ul
                                 class="space-y-2 md:space-y-3 text-sm md:text-base text-white/70 font-light leading-relaxed"
@@ -1074,7 +1081,7 @@
                         </div>
                     </div>
 
-                    <!-- Experience 2: Previous Company -->
+                    <!-- Experience 2: Zerozilla Technologies -->
                     <div
                         class="timeline-item relative pl-12 md:pl-0"
                         data-index="1"
@@ -1097,76 +1104,55 @@
                             class="timeline-card md:ml-[calc(50%+3rem)] bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-8 transition-all duration-500 opacity-30"
                         >
                             <h3
-                                class="text-xl md:text-3xl font-bold text-white mb-2 font-mono"
+                                class="text-xl md:text-2xl font-bold text-white mb-2 font-mono"
                             >
-                                [Previous Company] | [Your Role]
+                                <a
+                                    href="https://zerozilla.com/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="hover:text-[#00DCF6] transition-colors duration-300 cursor-pointer"
+                                >
+                                    Zerozilla Technologies
+                                </a> | Full Stack Developer Intern
                             </h3>
                             <p
                                 class="text-white/40 font-mono text-xs md:text-sm mb-4 md:mb-6"
                             >
-                                20XX - 20XX
+                                Mar 2021 - Apr 2021 • Bengaluru
                             </p>
                             <ul
                                 class="space-y-2 md:space-y-3 text-sm md:text-base text-white/70 font-light leading-relaxed"
                             >
                                 <li class="flex gap-2 md:gap-3">
-                                    <span class="text-[#00DCF6] mt-1">▸</span>
                                     <span
-                                        >Focus on JavaScript mastery and
-                                        Full-Stack feature delivery.</span
+                                        class="text-[#00DCF6] mt-1 text-xs md:text-base"
+                                        >▸</span
+                                    >
+                                    <span
+                                        >Developed an eCommerce clothing website
+                                        using MERN (MongoDB, ExpressJS, ReactJS,
+                                        NodeJS) stack.</span
                                     >
                                 </li>
-                                <li class="flex gap-3">
-                                    <span class="text-[#00DCF6] mt-1">▸</span>
+                                <li class="flex gap-2 md:gap-3">
                                     <span
-                                        >[Specific technical achievement to be
-                                        filled]</span
+                                        class="text-[#00DCF6] mt-1 text-xs md:text-base"
+                                        >▸</span
+                                    >
+                                    <span
+                                        >Built RESTful API to give privileges to
+                                        admin only to perform CRUD operations on
+                                        products and categories.</span
                                     >
                                 </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Experience 3: Earlier Company -->
-                    <div
-                        class="timeline-item relative pl-12 md:pl-0"
-                        data-index="2"
-                    >
-                        <!-- Pulsing Node -->
-                        <div
-                            class="timeline-node absolute left-4 md:left-1/2 top-0 -translate-x-1/2"
-                        >
-                            <div
-                                class="w-3 h-3 md:w-4 md:h-4 rounded-full bg-white/30 relative"
-                            >
-                                <div
-                                    class="absolute inset-0 rounded-full bg-[#00DCF6] animate-ping opacity-0"
-                                ></div>
-                            </div>
-                        </div>
-
-                        <!-- Content Card -->
-                        <div
-                            class="timeline-card md:ml-[calc(50%+3rem)] bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-8 transition-all duration-500 opacity-30"
-                        >
-                            <h3
-                                class="text-xl md:text-3xl font-bold text-white mb-2 font-mono"
-                            >
-                                [Earlier Company/Internship] | [Role]
-                            </h3>
-                            <p
-                                class="text-white/40 font-mono text-xs md:text-sm mb-4 md:mb-6"
-                            >
-                                20XX - 20XX
-                            </p>
-                            <ul
-                                class="space-y-2 md:space-y-3 text-sm md:text-base text-white/70 font-light leading-relaxed"
-                            >
-                                <li class="flex gap-3">
-                                    <span class="text-[#00DCF6] mt-1">▸</span>
+                                <li class="flex gap-2 md:gap-3">
                                     <span
-                                        >[Specific technical achievement to be
-                                        filled]</span
+                                        class="text-[#00DCF6] mt-1 text-xs md:text-base"
+                                        >▸</span
+                                    >
+                                    <span
+                                        >Integrated payment gateway using STRIPE
+                                        for secure transactions.</span
                                     >
                                 </li>
                             </ul>
@@ -2433,7 +2419,7 @@
             >
                 <!-- GitHub -->
                 <a
-                    href="https://github.com/yourusername"
+                    href="https://github.com/preethamMSalpha"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="contact-link group"
@@ -2453,7 +2439,7 @@
 
                 <!-- LinkedIn -->
                 <a
-                    href="https://linkedin.com/in/yourusername"
+                    href="https://www.linkedin.com/in/preethamms/"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="contact-link group"
@@ -2473,7 +2459,7 @@
 
                 <!-- Email -->
                 <a
-                    href="mailto:your.email@example.com"
+                    href="mailto:preethamms619@gmail.com"
                     class="contact-link group"
                 >
                     <div
@@ -2491,7 +2477,7 @@
 
                 <!-- Resume -->
                 <a
-                    href="/resume.pdf"
+                    href="https://www.linkedin.com/in/preethamms/"
                     target="_blank"
                     class="contact-link group"
                 >
