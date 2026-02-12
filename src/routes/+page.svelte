@@ -475,6 +475,7 @@
                 { x: 100, rotation: 5 }, // Card 2: from right
                 { y: 100, rotation: 0 }, // Card 3: from bottom
                 { x: -100, rotation: -5 }, // Card 4: from left
+                { x: 100, rotation: 5 }, // Card 5: from right
             ];
 
             bentoCards.forEach((card, index) => {
