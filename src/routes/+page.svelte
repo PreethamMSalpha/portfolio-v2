@@ -758,7 +758,7 @@
 </script>
 
 <svelte:head>
-    <title>Full-Stack Developer Portfolio | Architecting the Future</title>
+    <title>Preetham M S | Full Stack Engineer</title>
     <meta
         name="description"
         content="Explore a world-class portfolio showcasing full-stack development expertise with cutting-edge technologies and scalable solutions."
