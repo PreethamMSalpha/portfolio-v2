@@ -5,6 +5,7 @@
     import SplitType from "split-type";
     import ScrollCanvas from "$lib/components/ScrollCanvas.svelte";
     import ScrollNudge from "$lib/components/ScrollNudge.svelte";
+    import { supabase } from "$lib/supabaseClient";
 
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Observer);
 
@@ -15,6 +16,41 @@
 
     // Live uptime clock for SYSTEM_PROFILE
     let uptime = $state("00:00:00");
+    let profileVisits = $state(0);
+
+    async function trackVisit() {
+        if (!supabase) return;
+
+        try {
+            // Log this visit
+            const { error: insertError } = await supabase
+                .from("profile_visits")
+                .insert([
+                    {
+                        page: window.location.pathname,
+                        user_agent: navigator.userAgent,
+                    },
+                ]);
+
+            if (insertError) {
+                console.warn(
+                    "Supabase insert error (likely table missing):",
+                    insertError.message,
+                );
+            }
+
+            // Fetch total count
+            const { count, error: countError } = await supabase
+                .from("profile_visits")
+                .select("*", { count: "exact", head: true });
+
+            if (!countError) {
+                profileVisits = count || 0;
+            }
+        } catch (error) {
+            console.error("Error tracking visit:", error);
+        }
+    }
 
     // Back-to-Top Logic
     const scrollToTop = () => {
@@ -50,6 +86,7 @@
     };
 
     onMount(() => {
+        trackVisit();
         // ... existing kinetic typography logic ...
         const phase1Title = document.querySelector("#phase-1-title");
         const phase2Title = document.querySelector("#phase-2-title");
@@ -1096,6 +1133,19 @@
                             >
                             <span class="text-white/70 break-words"
                                 >BENGALURU_IN</span
+                            >
+                        </div>
+
+                        <!-- VISITS -->
+                        <div class="flex items-start gap-2 sm:gap-3">
+                            <span
+                                class="text-white/30 min-w-[70px] sm:min-w-[80px] shrink-0"
+                                >[VISITS]:</span
+                            >
+                            <span class="text-[#00DCF6] font-bold"
+                                >{profileVisits > 0
+                                    ? profileVisits.toLocaleString()
+                                    : "SYNCING..."}</span
                             >
                         </div>
 
