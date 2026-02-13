@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <style>
+    text {
+      font-family: 'Courier New', Courier, monospace;
+      font-weight: 900;
+    }
+    /* Light Mode */
+    .shape { fill: 
+#0f172a; } 
+    .letter { fill: 
+#ffffff; }
+    .cursor { fill: 
+#38bdf8; } 
+    /* Dark Mode */
+    @media (prefers-color-scheme: dark) {
+      .shape { fill: 
+#f8fafc; } 
+      .letter { fill: 
+#0f172a; }
+      .cursor { fill: 
+#0ea5e9; }
+    }
+  </style>
+  <path class="shape" d="M32 2 L58 17 V47 L32 62 L6 47 V17 Z" />
+
+  <text class="letter" x="40%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="38">P</text>
+
+  <rect class="cursor" x="40" y="40" width="10" height="4" />
+</svg>

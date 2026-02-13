@@ -1091,7 +1091,42 @@
     <title>Preetham M S | Full Stack Engineer</title>
     <meta
         name="description"
-        content="Explore a world-class portfolio showcasing full-stack development expertise with cutting-edge technologies and scalable solutions."
+        content="Full-stack engineer crafting modern, performant web applications."
+    />
+
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="Preetham M S - Portfolio" />
+    <meta
+        name="description"
+        content="Full-stack engineer crafting modern, performant web applications."
+    />
+
+    <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://preethamms.dev" />
+    <meta property="og:title" content="Preetham M S - Portfolio" />
+    <meta
+        property="og:description"
+        content="Full-stack engineer crafting modern, performant web applications."
+    />
+    <meta property="og:image" content="/preview.jpg" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://preethamms.dev" />
+    <meta name="twitter:title" content="Preetham M S - Portfolio" />
+    <meta
+        name="twitter:description"
+        content="Full-stack engineer crafting modern, performant web applications."
+    />
+    <meta name="twitter:image" content="/preview.jpg" />
+
+    <!-- Meta Tags for Search Engines -->
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Preetham M S" />
+    <meta
+        name="keywords"
+        content="Preetham M S, Full Stack Engineer, Portfolio, Web Development, Software Engineer"
     />
 </svelte:head>
 
@@ -1394,7 +1429,7 @@
                             <p
                                 class="text-white/40 font-mono text-xs md:text-sm mb-4 md:mb-6"
                             >
-                                Apr 2022 - Present
+                                Apr 2022 - Present • Bengaluru
                             </p>
                             <ul
                                 class="space-y-2 md:space-y-3 text-sm md:text-base text-white/70 font-light leading-relaxed"
