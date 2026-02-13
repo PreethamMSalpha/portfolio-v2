@@ -656,39 +656,60 @@
         // Staggered Reveal Animation for Bento Grid Cards
         const bentoCards = document.querySelectorAll(".bento-card");
         if (bentoCards.length > 0) {
-            // Set initial state - cards hidden
-            gsap.set(bentoCards, { opacity: 0, scale: 0.9 });
+            const mm = gsap.matchMedia();
 
-            // Define different entry directions for each card
-            const directions = [
-                { x: -100, rotation: -5 }, // Card 1: from left
-                { x: 100, rotation: 5 }, // Card 2: from right
-                { y: 100, rotation: 0 }, // Card 3: from bottom
-                { x: -100, rotation: -5 }, // Card 4: from left
-                { x: 100, rotation: 5 }, // Card 5: from right
-            ];
+            mm.add("(min-width: 768px)", () => {
+                // DESKTOP: Full staggered 3D animation
+                gsap.set(bentoCards, { opacity: 0, scale: 0.9 });
+                const directions = [
+                    { x: -50, rotation: -5 },
+                    { x: 50, rotation: 5 },
+                    { y: 50, rotation: 0 },
+                    { x: -50, rotation: -5 },
+                    { x: 50, rotation: 5 },
+                ];
 
-            bentoCards.forEach((card, index) => {
-                const direction = directions[index % directions.length];
+                bentoCards.forEach((card, index) => {
+                    const direction = directions[index % directions.length];
+                    gsap.set(card, direction);
+                    ScrollTrigger.create({
+                        trigger: card,
+                        start: "top bottom-=100",
+                        once: true,
+                        onEnter: () => {
+                            gsap.to(card, {
+                                opacity: 1,
+                                scale: 1,
+                                x: 0,
+                                y: 0,
+                                rotation: 0,
+                                duration: 0.8,
+                                ease: "power3.out",
+                                delay: index * 0.1,
+                            });
+                        },
+                    });
+                });
+            });
 
-                gsap.set(card, direction);
-
-                ScrollTrigger.create({
-                    trigger: card,
-                    start: "top bottom-=100",
-                    once: true,
-                    onEnter: () => {
-                        gsap.to(card, {
-                            opacity: 1,
-                            scale: 1,
-                            x: 0,
-                            y: 0,
-                            rotation: 0,
-                            duration: 0.8,
-                            ease: "power3.out",
-                            delay: index * 0.1,
-                        });
-                    },
+            mm.add("(max-width: 767px)", () => {
+                // MOBILE: Simplified fade-up to maintain 60fps
+                gsap.set(bentoCards, { opacity: 0, y: 30 });
+                bentoCards.forEach((card, index) => {
+                    ScrollTrigger.create({
+                        trigger: card,
+                        start: "top bottom-=50",
+                        once: true,
+                        onEnter: () => {
+                            gsap.to(card, {
+                                opacity: 1,
+                                y: 0,
+                                duration: 0.6,
+                                ease: "power2.out",
+                                delay: (index % 3) * 0.05,
+                            });
+                        },
+                    });
                 });
             });
         }
@@ -2715,7 +2736,7 @@
                         <span class="text-white/40">BUILD:</span> Svelte 5 + GSAP
                     </div>
                     <div>
-                        <span class="text-white/40">LIGHTHOUSE_SCORE:</span> 100
+                        <span class="text-white/40">LIGHTHOUSE_SCORE:</span> 90
                     </div>
                     <div>
                         <span class="text-white/40">RENDER_TIME:</span> ~12ms
@@ -2734,7 +2755,7 @@
                         Sans
                     </div>
                     <div>
-                        <span class="text-white/40">DEPLOYMENT:</span> Vercel
+                        <span class="text-white/40">DEPLOYMENT:</span> Netlify
                     </div>
                 </div>
             </div>
@@ -2849,12 +2870,26 @@
     .bento-card {
         position: relative;
         background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(20px);
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 1.5rem;
         padding: 1.5rem;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         overflow: hidden;
+        /* Hardware acceleration hints */
+        will-change: transform, opacity;
+        /* Remove global transition to prevent GSAP conflicts */
+        transition: none;
+    }
+
+    /* Only blur on desktop to save mobile GPU */
+    @media (min-width: 768px) {
+        .bento-card {
+            backdrop-filter: blur(20px);
+        }
+    }
+
+    /* Restrict transition to hover to avoid GSAP interaction */
+    .bento-card:hover {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .bento-card::before {
