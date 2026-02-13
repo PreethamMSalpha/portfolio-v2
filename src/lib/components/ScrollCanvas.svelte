@@ -148,8 +148,8 @@
             const lenis = (window as any).lenis;
             if (lenis) {
                 ScrollTrigger.scrollerProxy(document.body, {
-                    scrollTop(value: number) {
-                        if (arguments.length && lenis) {
+                    scrollTop(value?: number) {
+                        if (value !== undefined && lenis) {
                             lenis.scrollTo(value, { immediate: true });
                         }
                         return lenis.scroll;
@@ -178,11 +178,13 @@
                             trigger: triggerElement,
                             start: "top top",
                             end: "bottom bottom",
-                            scrub: isMobile ? 0.5 : 1.5,
+                            scrub: isMobile ? 0.5 : 1.0,
                             onUpdate: (self) => {
                                 const frameIndex = Math.min(
                                     FRAME_COUNT - 1,
-                                    Math.floor(self.progress * FRAME_COUNT),
+                                    Math.floor(
+                                        self.progress * (FRAME_COUNT - 1),
+                                    ),
                                 );
                                 if (frameIndex === lastDrawnFrame) return;
                                 currentFrame = frameIndex;

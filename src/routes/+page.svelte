@@ -1,13 +1,12 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import gsap from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger";
-    import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+    import { ScrollTrigger, ScrollToPlugin, Observer } from "gsap/all";
     import SplitType from "split-type";
     import ScrollCanvas from "$lib/components/ScrollCanvas.svelte";
     import ScrollNudge from "$lib/components/ScrollNudge.svelte";
 
-    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Observer);
 
     // Svelte 5 Runes for Back-to-Top Button
     let showBackToTop = $state(false);
@@ -152,7 +151,7 @@
                 trigger: container,
                 start: "top top",
                 end: "bottom bottom",
-                scrub: 1,
+                scrub: 0.1,
                 onUpdate: (self) => {
                     const progress = self.progress * 100; // 0-100
                     const { startPercent, endPercent } = phase;
@@ -262,6 +261,196 @@
                     gsap.set(element, { opacity, y });
                 },
             });
+        });
+
+        // PANEL-TO-PANEL SNAPPING Logic
+        // This detects the direction of scroll and 'jumps' to the next specific content phase
+        let currentStep = 0; // 0: Top, 1: Ph 2, 2: Ph 3, 3: Exit
+        const snapPoints = [0, 0.5, 0.85, 1.0];
+        let isAnimating = false;
+
+        const goToStep = (step: number) => {
+            if (isAnimating) return;
+            const targetStep = Math.max(
+                0,
+                Math.min(step, snapPoints.length - 1),
+            );
+            if (
+                targetStep === currentStep &&
+                currentStep !== 0 &&
+                currentStep !== 3
+            )
+                return;
+
+            const lenis = (window as any).lenis;
+            if (lenis) {
+                isAnimating = true;
+                const trigger = ScrollTrigger.getById("hero-master");
+                if (trigger) {
+                    const systemProfile = document.querySelector(
+                        "#system-profile",
+                    ) as HTMLElement;
+                    let scrollToPos =
+                        trigger.start +
+                        (trigger.end - trigger.start) * snapPoints[targetStep];
+
+                    // If exiting the hero (Step 3), target the top of the bio section exactly
+                    // This prevents any 'dead zone' jumps between the hero and bio
+                    if (targetStep === 3 && systemProfile) {
+                        scrollToPos = systemProfile.offsetTop;
+                    }
+
+                    lenis.scrollTo(scrollToPos, {
+                        duration: 2.0, // Balanced cinematic glide
+                        lock: true,
+                        easing: (t: number) =>
+                            t < 0.5
+                                ? 2 * t * t
+                                : 1 - Math.pow(-2 * t + 2, 2) / 2, // easeInOutQuad
+                        onComplete: () => {
+                            currentStep = targetStep;
+                            setTimeout(() => {
+                                isAnimating = false;
+                            }, 250); // Balanced settle time
+                        },
+                    });
+                } else {
+                    isAnimating = false;
+                }
+            }
+        };
+
+        // Master trigger to define the range and provide progress
+        ScrollTrigger.create({
+            id: "hero-master",
+            trigger: container,
+            start: "top top",
+            end: "bottom bottom",
+            onUpdate: (self) => {
+                if (!isAnimating) {
+                    const p = self.progress;
+                    if (p < 0.25) currentStep = 0;
+                    else if (p < 0.66) currentStep = 1;
+                    else if (p < 0.95) currentStep = 2;
+                    else currentStep = 3;
+                }
+            },
+        });
+
+        // PANEL-TO-PANEL INTERACTION Logic
+        let touchStartY = 0;
+
+        const handleWheel = (e: WheelEvent) => {
+            const trigger = ScrollTrigger.getById("hero-master");
+            if (!trigger || isAnimating) return;
+
+            // Absolute minimum threshold for intentional scroll
+            if (Math.abs(e.deltaY) < 10) return;
+
+            const direction = e.deltaY > 0 ? 1 : -1;
+            const p = trigger.progress;
+            const scrollY = window.scrollY;
+
+            // STRICT GUARDS: Only hijack if:
+            // 1. We are within the hero section (isActive)
+            // 2. We are at the very top (p=0) moving down
+            // 3. We are at the very boundary of Bio (p=1 and at end) moving up
+            const isInsideHero = trigger.isActive;
+            const isAtTopBoundary = scrollY <= trigger.start + 10;
+            const isAtBottomBoundary = Math.abs(scrollY - trigger.end) < 20;
+
+            if (direction > 0) {
+                if (!isInsideHero && !isAtTopBoundary) return;
+            } else {
+                if (!isInsideHero && !isAtBottomBoundary) return;
+            }
+
+            let targetStep = -1;
+            if (direction > 0) {
+                if (p >= 0.98) return; // Allow natural exit to Bio
+                for (let i = 0; i < snapPoints.length; i++) {
+                    if (snapPoints[i] > p + 0.01) {
+                        targetStep = i;
+                        break;
+                    }
+                }
+            } else {
+                if (p <= 0.01) return; // At functional top
+                for (let i = snapPoints.length - 1; i >= 0; i--) {
+                    if (snapPoints[i] < p - 0.01) {
+                        targetStep = i;
+                        break;
+                    }
+                }
+            }
+
+            if (targetStep !== -1) {
+                e.preventDefault();
+                goToStep(targetStep);
+            }
+        };
+
+        const handleTouchStart = (e: TouchEvent) => {
+            touchStartY = e.touches[0].clientY;
+        };
+
+        const handleTouchMove = (e: TouchEvent) => {
+            const trigger = ScrollTrigger.getById("hero-master");
+            if (!trigger || isAnimating) return;
+
+            const touchEndY = e.touches[0].clientY;
+            const deltaY = touchStartY - touchEndY;
+
+            if (Math.abs(deltaY) < 10) return;
+
+            const direction = deltaY > 0 ? 1 : -1;
+            const p = trigger.progress;
+            const scrollY = window.scrollY;
+
+            const isInsideHero = trigger.isActive;
+            const isAtTopBoundary = scrollY <= trigger.start + 10;
+            const isAtBottomBoundary = Math.abs(scrollY - trigger.end) < 20;
+
+            if (direction > 0) {
+                if (!isInsideHero && !isAtTopBoundary) return;
+            } else {
+                if (!isInsideHero && !isAtBottomBoundary) return;
+            }
+
+            let targetStep = -1;
+            if (direction > 0) {
+                if (p >= 0.98) return;
+                for (let i = 0; i < snapPoints.length; i++) {
+                    if (snapPoints[i] > p + 0.01) {
+                        targetStep = i;
+                        break;
+                    }
+                }
+            } else {
+                if (p <= 0.01) return;
+                for (let i = snapPoints.length - 1; i >= 0; i--) {
+                    if (snapPoints[i] < p - 0.01) {
+                        targetStep = i;
+                        break;
+                    }
+                }
+            }
+
+            if (targetStep !== -1) {
+                if (e.cancelable) {
+                    e.preventDefault();
+                    goToStep(targetStep);
+                }
+            }
+            touchStartY = touchEndY;
+        };
+
+        window.addEventListener("wheel", handleWheel, { passive: false });
+        window.addEventListener("touchstart", handleTouchStart, {
+            passive: true,
+        });
+        window.addEventListener("touchmove", handleTouchMove, {
+            passive: false,
         });
 
         // Timeline Scroll Interactions
@@ -2682,6 +2871,9 @@
         -webkit-mask:
             linear-gradient(#fff 0 0) content-box,
             linear-gradient(#fff 0 0);
+        mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
         -webkit-mask-composite: xor;
         mask-composite: exclude;
         opacity: 0;
@@ -2731,10 +2923,6 @@
     }
 
     /* Special pulse animation for TypeScript tag */
-    #ts-tag {
-        animation: tsPulse 2s ease-in-out infinite;
-    }
-
     @keyframes tsPulse {
         0%,
         100% {

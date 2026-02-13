@@ -16,8 +16,8 @@
             orientation: "vertical",
             gestureOrientation: "vertical",
             smoothWheel: true,
-            wheelMultiplier: 1,
-            syncTouch: false,
+            wheelMultiplier: 1.2,
+            syncTouch: true,
             touchMultiplier: 2,
             infinite: false,
         });
