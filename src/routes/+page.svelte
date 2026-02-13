@@ -16,19 +16,90 @@
 
     // Live uptime clock for SYSTEM_PROFILE
     let uptime = $state("00:00:00");
-    let profileVisits = $state(0);
+    let totalViews = $state(0);
+    let uniqueVisitors = $state(0);
+
+    function getDeviceType() {
+        const ua = navigator.userAgent;
+        if (/tablet|ipad|playbook|silk/i.test(ua)) return "tablet";
+        if (
+            /mobile|iphone|ipod|android|blackberry|opera mini|iemobile/i.test(
+                ua,
+            )
+        )
+            return "mobile";
+        return "desktop";
+    }
+
+    function getBrowser() {
+        const ua = navigator.userAgent;
+        if (ua.includes("Firefox")) return "Firefox";
+        if (ua.includes("SamsungBrowser")) return "Samsung Browser";
+        if (ua.includes("Opera") || ua.includes("OPR")) return "Opera";
+        if (ua.includes("Edge")) return "Edge";
+        if (ua.includes("Chrome")) return "Chrome";
+        if (ua.includes("Safari")) return "Safari";
+        return "Unknown";
+    }
+
+    function getOS() {
+        const ua = navigator.userAgent;
+        if (ua.includes("Windows")) return "Windows";
+        if (ua.includes("Mac OS")) return "macOS";
+        if (ua.includes("Linux")) return "Linux";
+        if (ua.includes("Android")) return "Android";
+        if (ua.includes("iPhone") || ua.includes("iPad")) return "iOS";
+        return "Unknown";
+    }
 
     async function trackVisit() {
         if (!supabase) return;
 
         try {
+            // Unique visitor ID
+            let visitorId = localStorage.getItem("visitor_id");
+            const isReturning = !!visitorId;
+            if (!visitorId) {
+                visitorId = crypto.randomUUID();
+                localStorage.setItem("visitor_id", visitorId!);
+            }
+
+            // Get location from free IP API
+            let locationData: any = {};
+            try {
+                const res = await fetch("https://ipapi.co/json/");
+                if (res.ok) {
+                    const data = await res.json();
+                    locationData = {
+                        country: data.country_name,
+                        city: data.city,
+                        region: data.region,
+                        ip_address: data.ip,
+                    };
+                }
+            } catch (e) {
+                console.log("Could not fetch location");
+            }
+
             // Log this visit
             const { error: insertError } = await supabase
                 .from("profile_visits")
                 .insert([
                     {
                         page: window.location.pathname,
+                        referrer: document.referrer || null,
+                        visitor_id: visitorId,
+                        ...locationData,
                         user_agent: navigator.userAgent,
+                        browser: getBrowser(),
+                        os: getOS(),
+                        device_type: getDeviceType(),
+                        screen_width: window.screen.width,
+                        screen_height: window.screen.height,
+                        language: navigator.language,
+                        timezone:
+                            Intl.DateTimeFormat().resolvedOptions().timeZone,
+                        is_returning: isReturning,
                     },
                 ]);
 
@@ -39,13 +110,25 @@
                 );
             }
 
-            // Fetch total count
-            const { count, error: countError } = await supabase
+            // Fetch total count (Total Views)
+            const { count: totalCount, error: totalError } = await supabase
                 .from("profile_visits")
                 .select("*", { count: "exact", head: true });
 
-            if (!countError) {
-                profileVisits = count || 0;
+            if (!totalError) {
+                totalViews = totalCount || 0;
+            }
+
+            // Fetch unique visitors
+            // Note: For large datasets, a Supabase RPC or View is better.
+            // For now, we fetch visitor_ids to count uniques.
+            const { data: visitorData, error: uniqueError } = await supabase
+                .from("profile_visits")
+                .select("visitor_id");
+
+            if (!uniqueError && visitorData) {
+                const uniqueIds = new Set(visitorData.map((v) => v.visitor_id));
+                uniqueVisitors = uniqueIds.size;
             }
         } catch (error) {
             console.error("Error tracking visit:", error);
@@ -1112,7 +1195,7 @@
                                 >[NAME]:</span
                             >
                             <span class="text-white/70 break-words"
-                                >PREETHAM</span
+                                >PREETHAM_M_S</span
                             >
                         </div>
 
@@ -1132,19 +1215,31 @@
                                 >[NODE]:</span
                             >
                             <span class="text-white/70 break-words"
-                                >BENGALURU_IN</span
+                                >BENGALURU_INDIA</span
                             >
                         </div>
 
-                        <!-- VISITS -->
+                        <!-- METRICS -->
                         <div class="flex items-start gap-2 sm:gap-3">
                             <span
                                 class="text-white/30 min-w-[70px] sm:min-w-[80px] shrink-0"
-                                >[VISITS]:</span
+                                >[VIEWS]:</span
                             >
                             <span class="text-[#00DCF6] font-bold"
-                                >{profileVisits > 0
-                                    ? profileVisits.toLocaleString()
+                                >{totalViews > 0
+                                    ? totalViews.toLocaleString()
+                                    : "SYNCING..."}</span
+                            >
+                        </div>
+
+                        <div class="flex items-start gap-2 sm:gap-3">
+                            <span
+                                class="text-white/30 min-w-[70px] sm:min-w-[80px] shrink-0"
+                                >[UNIQUES]:</span
+                            >
+                            <span class="text-[#00DCF6] font-bold"
+                                >{uniqueVisitors > 0
+                                    ? uniqueVisitors.toLocaleString()
                                     : "SYNCING..."}</span
                             >
                         </div>
@@ -2761,7 +2856,7 @@
             >
                 <div class="text-white/50 font-mono text-xs">
                     <span class="text-white/30">LAST_UPDATED:</span>
-                    <span id="last-updated">2026-02-07 02:43:00 IST</span>
+                    <span id="last-updated">14-02-2026 12:59:00 IST</span>
                 </div>
                 <button
                     id="dev-mode-toggle"
